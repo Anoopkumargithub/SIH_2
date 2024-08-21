@@ -1,0 +1,8 @@
+# development dependencies
+nodemon
+prettier
+
+# dependencies
+tailwindcss
+autoprefixer
+postcss
