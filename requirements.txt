@@ -6,3 +6,7 @@ prettier
 tailwindcss
 autoprefixer
 postcss
+
+bcrypt
+jsonwebtoken
+axios
