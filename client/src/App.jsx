@@ -1,12 +1,10 @@
 import React from 'react';
-import CreateAccount from './components/CreateAccount';
 import './index.css';
+import Navbar from './components/Navbar';
 
 const App = () => {
   return (
-    
-      <CreateAccount />
-
+    <Navbar/>
   );
 };
 
