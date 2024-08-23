@@ -7,6 +7,10 @@ tailwindcss
 autoprefixer
 postcss
 
+dotenv 
+mongoose
+express
+
 bcrypt
 jsonwebtoken
 axios
