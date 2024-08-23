@@ -6,3 +6,7 @@ prettier
 tailwindcss
 autoprefixer
 postcss
+
+dotenv 
+mongoose
+express
