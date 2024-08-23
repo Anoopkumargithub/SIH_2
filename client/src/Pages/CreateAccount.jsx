@@ -1,24 +1,27 @@
 import React from 'react';
-
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 const CreateAccount = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add any form validation or submission logic here
+    navigate('/userprofile'); // Redirect to /userprofile on successful submission
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0f1f] text-white w-screen">
-
-      <header className="flex items-center justify-between p-4 bg-[#1a6ba0]">
-        <h1 className="text-2xl font-bold">NexCareer</h1>
-        
-        <Link to="/login" className="text-sm text-white">  Already have an account?Login</Link>
-      </header>
+     <Navbar/>
       <main className="flex flex-col items-center justify-center min-h-[calc(60vh_-_65px)] px-4">
-        <div className="w-full lg:w-[30%] xl:w-[30%]"> {/* This line ensures the main div is 50% of the width on large screens */}
+        <div className="w-full lg:w-[30%] xl:w-[30%]">
           <div className="mb-8">
             <h2 className="text-4xl font-bold text-center">Create an account</h2>
             <p className="text-center text-lg mt-2">
               Sign up to access our job and internship opportunities.
             </p>
           </div>
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-sm font-medium">
@@ -66,11 +69,21 @@ const CreateAccount = () => {
                 <input id="otp6" className="w-full bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md" />
               </div>
             </div>
+         
             <div>
-              <button type="submit" className="w-full bg-[#1a6ba0] text-white font-bold py-3 px-4 rounded-md">
-                Sign Up
+              <button
+                type="submit"
+                className="w-full bg-[#1a6ba0] text-white font-bold py-3 px-4 rounded-md"
+              >
+                Create Account
               </button>
             </div>
+            <br />
+            <div className='px-20'>
+            <Link to="/login" className="text-sm text-white text-2.5xl font-bold">
+                   Already have an account? Login
+        </Link>
+        </div>
           </form>
         </div>
       </main>

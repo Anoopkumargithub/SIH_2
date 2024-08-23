@@ -1,13 +1,11 @@
 import React from 'react';
-
+import Navbar  from '../components/Navbar';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 const Login = () => {
   return (
     <div className="min-h-screen bg-[#0a0f1f] text-white w-screen">
 
-      <header className="flex items-center justify-between p-4 bg-[#1a6ba0]">
-        <h1 className="text-2xl font-bold">NexCareer</h1>
-       
-      </header>
+      <Navbar/>
       <main className="flex flex-col items-center justify-center min-h-[calc(60vh_-_65px)] px-4">
         <div className="w-full lg:w-[30%] xl:w-[30%]"> {/* This line ensures the main div is 50% of the width on large screens */}
           <div className="mb-8">
@@ -60,6 +58,12 @@ const Login = () => {
             Login 
               </button>
             </div>
+            <br />
+            <div className='px-20'>
+            <Link to="/" className="text-sm text-white text-2.5xl font-bold">
+                   Don't have an account? Signin
+        </Link>
+        </div>
           </form>
         </div>
       </main>
