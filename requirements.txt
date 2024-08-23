@@ -10,3 +10,8 @@ postcss
 dotenv 
 mongoose
 express
+
+@react-oauth/google
+react@17 
+react-dom@17
+--legacy-peer-deps

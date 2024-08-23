@@ -1,10 +1,13 @@
 import dotenv from "dotenv";
+import express from "express";
 
 import connectDB from "./db/index.js";
 
 dotenv.config({
     path: './env'
 }); // Load environment variables from .env file
+
+const app = express();
 
 connectDB() // Connect to MongoDB
 .then(() => {
