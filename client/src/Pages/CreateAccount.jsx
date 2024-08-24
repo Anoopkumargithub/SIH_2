@@ -1,14 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 import Navbar from '../components/Navbar';
+
 const CreateAccount = () => {
-  const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add any form validation or submission logic here
-    navigate('/userprofile'); // Redirect to /userprofile on successful submission
-  };
+    console.log({ name, email, password });  // Log data to be sent
+    axios.post('http://localhost:8000/Signup', { name, email, password })
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
+};
 
   return (
     <div className="min-h-screen bg-[#0a0f1f] text-white w-screen">
@@ -28,9 +35,11 @@ const CreateAccount = () => {
                   Name
                 </label>
                 <input
-                  id="name"
-                  placeholder="Enter your name"
-                  className="bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md w-full"
+                type="text"
+                placeholder="Enter your name"
+                name="name"
+                className="bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md w-full"
+                onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="space-y-2">
@@ -38,9 +47,10 @@ const CreateAccount = () => {
                   Email
                 </label>
                 <input
-                  id="email"
-                  placeholder="Enter your email"
                   type="email"
+                  name="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
                   className="bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md w-full"
                 />
               </div>
@@ -50,9 +60,10 @@ const CreateAccount = () => {
                 Password
               </label>
               <input
-                id="password"
-                placeholder="Enter a password"
                 type="password"
+                name="password"
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter a password"
                 className="bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md w-full"
               />
             </div>
@@ -78,13 +89,13 @@ const CreateAccount = () => {
                 Create Account
               </button>
             </div>
+          </form>
             <br />
             <div className='px-20'>
             <Link to="/login" className="text-sm text-white text-2.5xl font-bold">
                    Already have an account? Login
         </Link>
         </div>
-          </form>
         </div>
       </main>
     </div>
