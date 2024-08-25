@@ -20,7 +20,7 @@ const FormComponent = () => {
         </div>
 
         {/* Last Name */}
-        <div>
+        {/* <div>
           <label htmlFor="lastName" className="block text-[#aed9e0] font-semibold mb-2">
             Last Name
           </label>
@@ -29,7 +29,7 @@ const FormComponent = () => {
             type="text"
             className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
           />
-        </div>
+        </div> */}
 
         {/* Email */}
         <div>

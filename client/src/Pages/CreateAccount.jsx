@@ -73,19 +73,14 @@ const CreateAccount = () => {
                 className="bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md w-full"
               />
             </div>
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <label htmlFor="otp" className="block text-sm font-medium">
                 OTP
               </label>
               <div className="flex space-x-2">
                 <input id="otp1" className="w-full bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md" />
-                <input id="otp2" className="w-full bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md" />
-                <input id="otp3" className="w-full bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md" />
-                <input id="otp4" className="w-full bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md" />
-                <input id="otp5" className="w-full bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md" />
-                <input id="otp6" className="w-full bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md" />
               </div>
-            </div>
+            </div> */}
             <div>
               <button
                 type="submit"
