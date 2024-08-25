@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import mongoose, { Schema } from 'mongoose';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const userSchema = new Schema(
   {
@@ -31,10 +31,11 @@ const userSchema = new Schema(
 );
 
 userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) { // Fixed typo here
+    if (!this.isModified('password')) { 
         return next();
     }
-    this.password = await bcrypt.hash(this.password, 10); // Also make sure to await the hashing
+    this.password = await bcrypt.hash(this.password, 10);
+    console.log('Hashed Password:', this.password); // Log hashed password
     next();
 });
 
@@ -64,6 +65,6 @@ userSchema.methods.generateRefreshToken = function() {
     });
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema, 'nexcarrer');
 
 export default User;
