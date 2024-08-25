@@ -17,7 +17,7 @@ const Login = () => {
         password,
       });
       console.log(response.data);
-      navigate('/userprofile'); // Replace with your intended route
+      navigate('/dashboard'); // Replace with your intended route
     } catch (error) {
       console.error('Login Error:', error); // Log any error
       if (error.response && error.response.data) {
