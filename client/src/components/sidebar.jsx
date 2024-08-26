@@ -13,14 +13,14 @@ const Sidebar = () => {
   };
 
   return (
-    <div className='w-screen overflow-hidden'>
+    //<div className='w-screen overflow-hidden'>
       <div 
         className="bg-[#112d4e] text-white flex flex-col justify-between items-center"
         style={{ 
-          width: '22%', 
-          paddingLeft: '2%', 
+          width: '30%', 
+          paddingLeft: '1%', 
           paddingTop: '2%',
-          paddingRight: '2%', 
+          paddingRight: '1%', 
           height: '88vh',
         }}
       >
@@ -52,7 +52,7 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
-    </div>
+   // </div>
   );
 };
 
