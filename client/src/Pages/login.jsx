@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../components/navbar';
+import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -76,6 +77,12 @@ const Login = () => {
               </button>
             </div>
           </form>
+          <br />
+          <div className='px-20'>
+            <Link to="/" className="text-sm text-white text-2.5xl font-bold">
+              Create your Account here
+            </Link>
+          </div>
         </div>
       </main>
     </div>

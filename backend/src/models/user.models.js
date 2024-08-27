@@ -1,10 +1,17 @@
 import mongoose, { Schema } from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+// Use UUID for userId generation const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
 const userSchema = new Schema(
   {
-    name: { 
+    userId: {
+        type: String,
+        default: uuidv4, // Automatically generate UUID for userId
+        unique: true,    // Ensure userId is unique
+        required: true,  // Make it required
+    },name: { 
         type: String, 
         required: true,
         lowercase: true,
@@ -35,7 +42,7 @@ userSchema.pre('save', async function (next) {
         return next();
     }
     this.password = await bcrypt.hash(this.password, 10);
-    console.log('Hashed Password:', this.password); // Log hashed password
+    console.log('Hashed Password:', this.password); // Log hashed password remove before SIH
     next();
 });
 
