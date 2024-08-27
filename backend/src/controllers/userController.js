@@ -2,6 +2,7 @@
 import User from '../models/user.models.js'; 
 import Profile from '../models/profile.models.js';
 import jwt from 'jsonwebtoken';
+import company from '../models/company.models.js';
 
 // Signup controller
 export const signup = async (req, res) => {
@@ -58,88 +59,12 @@ export const login = async (req, res) => {
 
         res.status(200).json({
             accessToken,
-            user: { name: user.name, email: user.email }
+            user: { name: user.name, email: user.email, accessToken : accessToken }
         });
     } catch (error) {
         res.status(500).json({ message: 'Server error, please try again later.' });
     }
 };
-
-// Create User Profile
-// export const createUserProfile = async (req, res) => {
-//     try {
-//         const { gender, phone_no, current_city, role, area_of_interest, currently_looking, skills } = req.body;
-
-//         // Create a new profile
-//         const newProfile = new Profile({
-//             gender,
-//             phone_no,
-//             current_city,
-//             role,
-//             area_of_interest,
-//             currently_looking,
-//             skills
-//         });
-
-//         // Save the profile to the database
-//         const savedProfile = await newProfile.save();
-//         res.status(201).json(savedProfile);
-//     } catch (error) {
-//         console.error('Error creating profile:', error);
-//         res.status(500).json({ message: 'Failed to create profile. Please try again.' });
-//     }
-// };
-
-// Update User Profile
-// export const updateUserProfile = async (req, res) => {
-//     try {
-//          const { userId } = req.User; // Marked Change: Accessing userId from token
-//         const { gender, phone_no, current_city, role, area_of_interest, currently_looking, skills } = req.body;
-
-//         // Find and update the profile
-//         const updatedProfile = await Profile.findByIdAndUpdate(id, {
-//             gender,
-//             phone_no,
-//             current_city,
-//             role,
-//             area_of_interest,
-//             currently_looking,
-//             skills
-//         }, { new: true });
-
-//         if (!updatedProfile) {
-//             return res.status(404).json({ message: 'Profile not found.' });
-//         }
-
-//         res.status(200).json(updatedProfile);
-//     } catch (error) {
-//         console.error('Error updating profile:', error);
-//         res.status(500).json({ message: 'Failed to update profile. Please try again.' });
-//     }
-// };
-// export const updateUserProfile = async (req, res) => {
-//     const { userId } = req.user; // Marked Change: Accessing userId from token
-//     const updateData = req.body;
-
-//     try {
-//         const updatedUser = await User.findByIdAndUpdate(
-//             userId,  // Marked Change: Finding by userId
-//             { $set: updateData },
-//             { new: true, runValidators: true }
-//         );
-
-//         if (!updatedUser) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-
-//         res.json({
-//             message: 'Profile updated successfully',
-//             profile: updatedUser
-//         });
-//     } catch (error) {
-//         res.status(400).json({ message: 'Failed to update profile', error: error.message });
-//     }
-// };
 
 // Get User Profile
 export const getUserProfile = async (req, res) => {
@@ -195,3 +120,67 @@ export const createOrUpdateProfile = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+export const getPrivateJobs = async (req, res) => {
+    try{
+        // fetch user role and skill
+
+        const profile = await Profile.findOne({userId : req.user._id});
+        console.log(profile.skills)
+        const skill = profile.skills;
+
+
+
+        // fetch jobs based on user role and skill
+        
+        // fetch all company
+
+        const jobs = await company.find({skills : {$in : skill} , sector : "private"});
+        console.log(jobs);
+    
+        
+
+        res.status(200).json(jobs);
+
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+export const getGovernmentJobs = async (req, res) => {
+    try{
+        // fetch user role and skill
+
+        const profile = await Profile.findOne({userId : req.user._id});
+        console.log(profile.skills)
+        const skill = profile.skills;
+
+        const jobs = await company.find({skills : {$in : skill} , sector : "government"});
+
+        res.status(200).json(jobs);
+
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+
+export const getOverseasJobs = async (req, res) => {
+    try{
+        // fetch user role and skill
+
+        const profile = await Profile.findOne({userId : req.user._id});
+        console.log(profile.skills)
+        const skill = profile.skills;
+
+        const jobs = await company.find({skills : {$in : skill} , sector : "overseas"});
+
+        res.status(200).json(jobs);
+
+    }
+    catch(err){
+        console.log(err);
+    }
+}

@@ -46,13 +46,13 @@ const UserProfile = () => {
             _id: response.data._id || '',
           name: response.data.name || '',
           email: response.data.email || '',
+          gender: response.data.gender || '',
           phone_no: response.data.phone_no || '',
           current_city: response.data.current_city || '',
-          gender: response.data.gender || '',
+          courses: response.data.courses || '',
+          skills: response.data.skills || [],
           role: response.data.role || '',
-          area_of_interest: response.data.area_of_interest || '',
           currently_looking: response.data.currently_looking || '',
-          skills: response.data.skills || []
         };
           setProfileData(data);
         } else {
@@ -197,24 +197,52 @@ const UserProfile = () => {
             />
           </div>
 
-          {/* Area(s) of Interest */}
+          {/* Courses */}
           <div>
-            <label htmlFor="area_of_interest" className="block text-[#aed9e0] font-semibold mb-2">
-              Area(s) of Interest
+            <label htmlFor="courses" className="block text-[#aed9e0] font-semibold mb-2">
+              Courses
             </label>
             <select
-              id="area_of_interest"
-              value={profileData.area_of_interest || ''}
+              id="courses"
+              value={profileData.courses || ''}
               onChange={handleChange}
               className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             >
               <option value="" disabled>Select Area of Interest</option>
-              <option value="AI">AI</option>
-              <option value="Cloud">Cloud</option>
-              <option value="Data Analytics">Data Analytics</option>
-              <option value="Machine Learning">Machine Learning</option>
-              <option value="Web Development">Web Development</option>
-              <option value="Mobile Development">Mobile Development</option>
+              <option value="B.Tech">B.Tech</option>
+              <option value="M.Tech">M.Tech</option>
+              <option value="BCA">BCA</option>
+              <option value="MCA">MCA</option>
+              <option value="BSc">BSc</option>
+              <option value="MSc">MSc</option>
+              <option value="BBA">BBA</option>
+              <option value="MBA">MBA</option>
+              
+              
+            </select>
+          </div>
+
+          {/* Skills */}
+          <div>
+            <label htmlFor="skills" className="block text-[#aed9e0] font-semibold mb-2">
+              Skills
+            </label>
+            <select
+              id="skills"
+              multiple
+              value={profileData.skills || []}
+              onChange={handleMultiSelectChange}
+              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+            >
+              <option value="" disabled>Select Skills</option>
+                    <option value="Java">Java</option>
+                    <option value="Spring">Spring</option>
+                    <option value="SQL">SQL</option>
+                    <option value="React">React</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Python">Python</option>
+                    <option value="Node.js">Node.js</option>
+                    <option value="Docker">Docker</option>
             </select>
           </div>
 
@@ -229,13 +257,22 @@ const UserProfile = () => {
               onChange={handleChange}
               className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             >
+              {/* Software Engineer
+Frontend Developer
+Backend Developer
+AI Engineer
+Cloud Engineer
+Full Stack Developer
+AI Engineer Intern */}
+
               <option value="" disabled>Select Role</option>
-              <option value="Frontend Engineer">Frontend Engineer</option>
-              <option value="Backend Engineer">Backend Engineer</option>
-              <option value="Full Stack Engineer">Full Stack Engineer</option>
-              <option value="Data Scientist">Data Scientist</option>
-              <option value="DevOps Engineer">DevOps Engineer</option>
+              <option value="Software Engineer">Software Engineer</option>
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="Backend Developer">Backend Developer</option>
               <option value="AI Engineer">AI Engineer</option>
+              <option value="Cloud Engineer">Cloud Engineer</option>
+              <option value="Full Stack Developer">Full Stack Developer</option>
+              <option value="AI Engineer Intern">AI Engineer Intern</option>
             </select>
           </div>
 
@@ -260,33 +297,7 @@ const UserProfile = () => {
             </select>
           </div>
 
-          {/* Skills */}
-          <div>
-            <label htmlFor="skills" className="block text-[#aed9e0] font-semibold mb-2">
-              Skills
-            </label>
-            <select
-              id="skills"
-              multiple
-              value={profileData.skills || []}
-              onChange={handleMultiSelectChange}
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
-            >
-              {/* 'React.js', 'Node.js', 'MongoDB', 'HTML', 'CSS', 'Python', 'Machine Learning', 'Cloud', 'JavaScript', 'TypeScript' */}
-                    <option value="React.js">React.js</option>
-                    <option value="Node.js">Node.js</option>
-                    <option value="MongoDB">MongoDB</option>
-                    <option value="HTML">HTML</option>
-                    <option value="CSS">CSS</option>
-                    <option value="Python">Python</option>
-                    <option value="Machine Learning">Machine Learning</option>
-                    <option value="Cloud">Cloud</option>
-                    <option value="JavaScript">JavaScript</option>
-                    <option value="TypeScript">TypeScript</option>
-
-
-            </select>
-          </div>
+          
 
           <div className="col-span-2 mt-4">
             <button
