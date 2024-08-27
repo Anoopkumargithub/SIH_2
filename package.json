@@ -1,0 +1,16 @@
+{
+    "name": "glamis",
+    "version": "1.0.0",
+    "description": "This is a mock interview portal designed for the students of GLA University to prepare for interviews.",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "concurrently \"cd backend && npm i && npm run dev\" \"cd client && npm i && npm run dev\" \"cd admin-client && npm i && npm run dev\"",
+      "prod": "concurrently \"cd backend && npm i && npm start\" \"cd client && npm i && npm run build && npm run preview\" \"cd admin-client && npm i && npm run build && npm run preview\""
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "concurrently": "^8.2.2"
+    }
+  }
