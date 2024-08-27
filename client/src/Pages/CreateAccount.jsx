@@ -8,20 +8,29 @@ const CreateAccount = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Marked Change: Loading state
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ name, email, password });  // Log data to be sent
-    axios.post('http://localhost:8000/api/users/signup', { name, email, password })
-        .then(result => {
-            console.log(result);
-            navigate('/userprofile');
-        })
-        .catch(err => {
-            console.error('Error:', err.response ? err.response.data : err.message);
-        });
-  };
+    setIsLoading(true); // Marked Change: Set loading state to true before making request to backend  
+
+
+
+  //   
+    try {
+    const result = await axios.post('http://localhost:8000/api/users/signup', { name, email, password });
+    localStorage.setItem('accessToken', result.data.accessToken);
+    localStorage.setItem('refreshToken', result.data.refreshToken);
+    localStorage.setItem('userId', result.data.userId);
+    navigate('/userprofile');
+} catch (err) {
+    console.error('Error:', err.response ? err.response.data : err.message);
+    alert('Failed to create account. Please try again.');
+} finally {
+    setIsLoading(false); // Marked Change: Set loading false
+}
+};
 
   return (
     <div className="min-h-screen bg-[#0a0f1f] text-white w-screen">
@@ -73,18 +82,11 @@ const CreateAccount = () => {
                 className="bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md w-full"
               />
             </div>
-            {/* <div className="space-y-2">
-              <label htmlFor="otp" className="block text-sm font-medium">
-                OTP
-              </label>
-              <div className="flex space-x-2">
-                <input id="otp1" className="w-full bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md" />
-              </div>
-            </div> */}
             <div>
               <button
                 type="submit"
                 className="w-full bg-[#1a6ba0] text-white font-bold py-3 px-4 rounded-md"
+                isabled={isLoading}
               >
                 Create Account
               </button>
