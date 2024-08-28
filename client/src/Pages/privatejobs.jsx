@@ -30,7 +30,7 @@ const Dashboard = () => {
       <Dashnavbar className="sticky top-0 z-10" type="job"/>
       <div className="flex w-screen h-full">
         <Sidebar className="sticky top-0 h-full" />
-        <div className="flex-grow p-4 flex flex-wrap gap-8 overflow-hidden pb-20 pl-20">
+        <div className="grid grid-cols-3 p-2 gap-10 overflow-hidden ">
           {jobs.map((job) => (
             <JobCard key={job._id} job={job} />
           ))}

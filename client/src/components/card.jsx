@@ -3,7 +3,7 @@ import React from 'react';
 const JobCard = (props) => {
   console.log(props);
   return (
-    <div className="bg-[#022b3a] text-white shadow-md rounded-lg p-10  px-20 w-full " style={{ height: '38vh' }}>
+    <div className="bg-[#022b3a] text-white shadow-md rounded-lg p-2  px-10 w-full " style={{ height: '41vh' }}>
       <div className="mb-2 ">
         <h2 className="text-lg font-bold">{props.job.companyName}</h2>
         {/* { <img src={`company logo`} alt="Company Logo" className="h-12 w-auto" /> } */}
