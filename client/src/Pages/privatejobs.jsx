@@ -34,16 +34,8 @@ const Dashboard = () => {
           {jobs.map((job) => (
             <JobCard key={job._id} job={job} />
           ))}
-        <div className="p-4 grid grid-cols-1 lg:grid-cols-3  gap-8 overflow-hidden ">
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          {/* <JobCard />
-          <JobCard />
-          <JobCard /> */}
-          {/* Add more cards or other content here */}
-        </div>
       </div>
+    </div>
     </div>
   );
 };
