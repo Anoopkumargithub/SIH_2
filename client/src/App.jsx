@@ -8,6 +8,7 @@ import './index.css';
 import Govjobs from './Pages/govjobs';
 import PrivateIntern from './Pages/privateInternship';
 import Overseasjobs from  './Pages/overseasjobs';
+import LandingPage from './Pages/LandingPage';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
       <Route path="/Jobs/Government" element={<Govjobs />} />
       <Route path="/Jobs/Overseas" element={<Overseasjobs />} />
       <Route path="/Internship/Private" element={<PrivateIntern />} />
+      <Route path="/LandingPage" element={<LandingPage />} />
     </Routes>
   </Router>
   );
