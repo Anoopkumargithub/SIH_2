@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
+import profileImage from './profileImage.png';
 
 const UserProfile = () => {
   const [profileData, setProfileData] = useState({
@@ -122,10 +123,12 @@ const UserProfile = () => {
     <div>
       <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-[#0a0f1f] w-screen">
-        <div className="grid grid-cols-2 gap-3 bg-[#013440] p-8 rounded-lg shadow-lg w-9/12 max-w-5xl">
-          {/* Name */}
+        <div className="flex justify-between items-center w-6/12 max-w-5xl bg-[#0e2645] p-8 rounded-lg shadow-lg">
+          {/* Form on the Left */}
+          <div className="w-9/12">
+            <div className="grid grid-cols-2 gap-8">
           <div>
-            <label htmlFor="name" className="block text-[#aed9e0] font-semibold mb-2">
+            <label htmlFor="name" className="block text-[#aed9e0] font-semibold mb-2 ">
               Name
             </label>
             <input
@@ -133,7 +136,7 @@ const UserProfile = () => {
               type="text"
               value={profileData.name || ''}
               readOnly
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+              className="bg-[#022b3a] border-[#262e9a] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             />
           </div>
 
@@ -147,7 +150,7 @@ const UserProfile = () => {
               type="email"
               value={profileData.email || ''}
               readOnly
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+              className="bg-[#022b3a] border-[#262e9a] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             />
           </div>
 
@@ -158,7 +161,7 @@ const UserProfile = () => {
             </label>
             <select
               id="gender"
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+              className="bg-[#022b3a] border-[#262e9a] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
               value={profileData.gender || ''}
               onChange={handleChange}
             >
@@ -179,7 +182,7 @@ const UserProfile = () => {
               type="number"
               value={profileData.phone_no || ''}
               onChange={handleChange}
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+              className="bg-[#022b3a] border-[#262e9a] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             />
           </div>
 
@@ -193,7 +196,7 @@ const UserProfile = () => {
               type="text"
               value={profileData.current_city || ''}
               onChange={handleChange}
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+              className="bg-[#022b3a] border-[#262e9a] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             />
           </div>
 
@@ -206,7 +209,7 @@ const UserProfile = () => {
               id="courses"
               value={profileData.courses || ''}
               onChange={handleChange}
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+              className="bg-[#022b3a] border-[#262e9a] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             >
               <option value="" disabled>Select Area of Interest</option>
               <option value="B.Tech">B.Tech</option>
@@ -232,7 +235,7 @@ const UserProfile = () => {
               multiple
               value={profileData.skills || []}
               onChange={handleMultiSelectChange}
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+              className="bg-[#022b3a] border-[#262e9a] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             >
               <option value="" disabled>Select Skills</option>
                     <option value="Java">Java</option>
@@ -255,7 +258,7 @@ const UserProfile = () => {
               id="role"
               value={profileData.role || ''}
               onChange={handleChange}
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+              className="bg-[#022b3a] border-[#262e9a] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             >
               {/* Software Engineer
 Frontend Developer
@@ -285,7 +288,7 @@ AI Engineer Intern */}
               id="currently_looking"
               value={profileData.currently_looking || ''}
               onChange={handleChange}
-              className="bg-[#022b3a] border-[#027c7e] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
+              className="bg-[#022b3a] border-[#262e9a] border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring focus:ring-[#02a9a3] text-[#e0f4f1]"
             >
               <option value="" disabled>Select an Option</option>
               <option value="Internship">Internship</option>
@@ -308,6 +311,12 @@ AI Engineer Intern */}
             </button>
           </div>
         </div>
+      </div>
+      
+        </div>
+        <div className="w-5/12">
+            <img src={profileImage} alt="User Profile" className="object-contain w-full h-auto rounded-lg shadow-lg" />
+          </div>
       </div>
     </div>
   );

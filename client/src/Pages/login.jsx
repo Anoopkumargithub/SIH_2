@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/navbar';
-import Cookie from "js-cookie"
+import Cookie from "js-cookie";
+import loginImage from './login-image.avif'; // Import the background image
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -33,11 +34,14 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0f1f] text-white w-screen">
+    <div 
+      className="min-h-screen bg-cover bg-center w-screen text-white" 
+      style={{ backgroundImage: `url(${loginImage})`, backgroundColor: 'rgba(0, 0, 0, 0.7)', backgroundBlendMode: 'overlay' }} // Set background image with overlay
+    >
       <Navbar />
       <main className="flex flex-col items-center justify-center min-h-[calc(60vh_-_65px)] px-4">
-        <div className="w-full lg:w-[30%] xl:w-[30%]">
-          <div className="mb-8">
+        <div className="bg-[#0a1a2f]/75 mt-20 p-8 rounded-lg w-full lg:w-[30%] xl:w-[30%]"> {/* Make the form slightly transparent */}
+          <div className="mb-8 ">
             <h2 className="text-4xl font-bold text-center">Login</h2>
             <p className="text-center text-lg mt-2">
               Log in to access your account.
