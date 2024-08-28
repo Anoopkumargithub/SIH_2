@@ -23,12 +23,12 @@ const profileSchema = new mongoose.Schema(
         },
         role: { 
             type: String, 
-            enum: ['Frontend Engineer', 'Backend Engineer', 'Full Stack Engineer', 'Data Scientist', 'DevOps Engineer', 'AI Engineer'], 
+            enum: ['Software Engineer','Frontend Developer','Backend Developer','AI Engineer','Cloud Engineer','Full Stack Developer','AI Engineer', 'Data Analyst', 'Data Scientist', 'Machine Learning Engineer', 'Mobile Developer'], 
             required: true 
         },
-        area_of_interest: { 
-            type: String, 
-            enum: ['AI', 'Cloud', 'Data Analytics', 'Machine Learning', 'Web Development', 'Mobile Development'], 
+        courses: { 
+            type: [String], 
+            enum: ['B.Tech', 'M.Tech', 'BCA', 'MCA', 'BSc', 'MSc', 'BBA', 'MBA'], 
             required: true 
         },
         currently_looking: { 
@@ -38,7 +38,7 @@ const profileSchema = new mongoose.Schema(
         },
         skills: { 
             type: [String], 
-            enum: ['React.js', 'Node.js', 'MongoDB', 'HTML', 'CSS', 'Python', 'Machine Learning', 'Cloud', 'JavaScript', 'TypeScript'], 
+            enum: ['Java','Spring','SQL','React','JavaScript','Node.js','Python','Docker'], 
             required: true 
         },
     },
