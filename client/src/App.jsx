@@ -9,6 +9,9 @@ import Govjobs from './Pages/govjobs';
 import PrivateIntern from './Pages/privateInternship';
 import Overseasjobs from  './Pages/overseasjobs';
 import LandingPage from './Pages/LandingPage';
+import VideoCallLayout from './Pages/MockInterview';
+
+import Jobfinder from './Pages/jobfinder';
 
 const App = () => {
   return (
@@ -23,6 +26,8 @@ const App = () => {
       <Route path="/Jobs/Overseas" element={<Overseasjobs />} />
       <Route path="/Internship/Private" element={<PrivateIntern />} />
       <Route path="/LandingPage" element={<LandingPage />} />
+      <Route path="/mock" element={<VideoCallLayout />} />
+      <Route path="/bigcard" element={<Jobfinder />} />
     </Routes>
   </Router>
   );

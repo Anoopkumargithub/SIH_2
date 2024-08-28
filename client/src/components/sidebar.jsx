@@ -24,11 +24,11 @@ const Sidebar = () => {
     <div 
       className="bg-[#112d4e] text-white flex flex-col justify-between items-center"
       style={{ 
-        width: '300px', // Fixed width
+        width: "450px",  
         paddingLeft: '1%', 
         paddingTop: '2%',
         paddingRight: '1%', 
-        height: '88vh',
+        height: '90vh',
         overflow: 'hidden', // Prevents overflow
       }}
     >

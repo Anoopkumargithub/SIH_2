@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/navbar';
+import Cookie from "js-cookie"
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,6 +19,8 @@ const Login = () => {
         password,
       });
       console.log(response.data);
+      Cookie.set("accessToken", response.data.accessToken);
+      
       navigate('/Jobs/Private'); // Replace with your intended route
     } catch (error) {
       console.error('Login Error:', error); // Log any error
