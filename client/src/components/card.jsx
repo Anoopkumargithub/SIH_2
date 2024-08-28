@@ -2,7 +2,7 @@ import React from 'react';
 
 const JobCard = () => {
   return (
-    <div className="bg-[#022b3a] text-white shadow-md rounded-lg p-10 w-1/4 m-2 ml-10 " style={{ height: '38vh' }}>
+    <div className="bg-[#022b3a] text-white shadow-md rounded-lg p-10  px-20 w-full " style={{ height: '38vh' }}>
       <div className="mb-2 ">
         <h2 className="text-lg font-bold">{`Company name`}</h2>
         {/* { <img src={`company logo`} alt="Company Logo" className="h-12 w-auto" /> } */}

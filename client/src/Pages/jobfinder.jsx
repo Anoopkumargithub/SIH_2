@@ -1,21 +1,17 @@
 import Sidebar from '../components/sidebar';
 import Dashnavbar from '../components/dashnavbar';
-import JobCard from '../components/card';
+import Companycard from '../components/bigcard';
 import React from 'react';
 
-const Dashboard = () => {
+const  Jobfinder = () => {
   return (
     <div className="h-screen overflow-hidden">
-      <Dashnavbar className="sticky top-0 z-10" type="job"/>
+      <Dashnavbar className="sticky top-0 z-10" type="internship"/>
       <div className="flex w-screen h-full">
         <Sidebar className="sticky top-0 h-full" />
-        <div className="p-4 grid grid-cols-1 lg:grid-cols-3  gap-8 overflow-hidden ">
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          {/* <JobCard />
-          <JobCard />
-          <JobCard /> */}
+        <div className="flex-grow flex flex-wrap gap-8 overflow-hidden ">
+          <Companycard />
+       
           {/* Add more cards or other content here */}
         </div>
       </div>
@@ -23,4 +19,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Jobfinder;
