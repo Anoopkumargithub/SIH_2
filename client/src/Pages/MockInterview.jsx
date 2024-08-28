@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
+import BackgroundImage from './mockInterview.png'; // Adjust path if needed
 
 const VideoCallLayout = () => {
   const [question, setQuestion] = useState('');
@@ -81,52 +82,84 @@ const VideoCallLayout = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#006d77] text-white w-screen">
-      <div className="w-1/3 h-1/3 bg-[#307cee] flex justify-center items-center">
-        <video
-          ref={videoRef}
-          autoPlay
-          className="video bg-[#0e124a] w-full h-full"
-        ></video>
-        <audio
-          ref={audioRef}
-          autoPlay
-          className="audio bg-[#83c5be] w-full h-full"
-        ></audio>
-      </div>
-      <div className="flex-1 bg-[#006d77] flex justify-center items-center">
-        <div className="w-2/3 h-2/3 bg-[#edf6f9] text-[#006d77] p-6 flex flex-col justify-between">
-          <div className="question">
-            <input
-              type="text"
-              placeholder="Question"
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              className="w-full p-2 border border-[#006d77] rounded-md bg-[#edf6f9] text-[#006d77]"
-            />
+    <div className="relative h-screen w-screen">
+      <div className="flex h-full bg-[#0a0f1f]">
+        {/* Video Feed on the Left */}
+        <div className="w-1/4 h-[33vh] flex flex-col">
+          <div className="flex-grow bg-black flex justify-center items-center">
+            <video
+              ref={videoRef}
+              autoPlay
+              className="w-full h-full object-cover rounded-lg"
+            ></video>
+            <audio
+              ref={audioRef}
+              autoPlay
+              className="hidden"
+            ></audio>
           </div>
-          <div className="controls flex justify-between items-center">
-            <button
-              className={`p-2 rounded-md flex items-center ${
-                isMicEnabled
-                  ? 'bg-[#06aed5] text-[#edf6f9]'
-                  : 'bg-[#83c5be] text-[#006d77]'
-              }`}
-              onClick={toggleMic}
-            >
-              {isMicEnabled ? (
-                <FaMicrophone className="mr-2" />
-              ) : (
-                <FaMicrophoneSlash className="mr-2" />
-              )}
-              Mic
-            </button>
-            <div className="timer bg-[#83c5be] px-4 py-2 rounded-md">
-              {time > 0 ? time : 'Time\'s up!'}
+          {/* Table below the video */}
+          <div className="bg-[#0a0f1f] text-white border-t border-white p-4 py-40">
+            <h2 className="text-lg font-bold mb-2 text-center">Question Update</h2>
+            <table className="w-full text-white border border-white">
+              <tbody>
+                <tr className="border-b border-white">
+                  <td className="p-2">Total Number of Questions</td>
+                  <td className="p-2 text-right">10</td> {/* Example value */}
+                </tr>
+                <tr className="border-b border-white">
+                  <td className="p-2">Total Attempted</td>
+                  <td className="p-2 text-right">3</td> {/* Example value */}
+                </tr>
+                <tr>
+                  <td className="p-2">Remaining</td>
+                  <td className="p-2 text-right">7</td> {/* Example value */}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {/* Black Background for the Rest of the Screen */}
+        <div className="flex-1 bg-[#0a0f1f] text-white p-6 flex flex-col justify-between relative">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${BackgroundImage})`, filter: 'brightness(0.5)' }}
+          />
+          <div className="relative z-10 flex flex-col h-full justify-between">
+            <div className="question mb-4">
+              <input
+                type="text"
+                placeholder="Ask your question"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                className="w-full p-3 border border-white rounded-md bg-[#1c1c1c] text-white focus:outline-none"
+              />
             </div>
-            <button className="p-2 bg-[#06aed5] text-[#edf6f9] rounded-md">
-              Next
-            </button>
+            <div className="controls flex flex-col items-center">
+              <div className="flex gap-4 mb-4">
+                <button
+                  className={`p-3 rounded-md flex items-center ${
+                    isMicEnabled
+                      ? 'bg-[#06aed5] text-[#edf6f9]'
+                      : 'bg-[#83c5be] text-[#006d77]'
+                  }`}
+                  onClick={toggleMic}
+                >
+                  {isMicEnabled ? (
+                    <FaMicrophone className="mr-2" />
+                  ) : (
+                    <FaMicrophoneSlash className="mr-2" />
+                  )}
+                  Mic
+                </button>
+              </div>
+              <div className="timer bg-[#83c5be] px-6 py-3 rounded-md mb-4 text-[#006d77]">
+                {time > 0 ? time : "Time's up!"}
+              </div>
+              <button className="p-3 bg-[#06aed5] text-[#edf6f9] rounded-md w-full">
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>
