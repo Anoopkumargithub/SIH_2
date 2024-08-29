@@ -6,7 +6,7 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 import image from './intern.png';
 
-const PrivateIntern = () => {
+const OverseasIntern = () => {
   const [jobs, setJobs] = useState([]);
   const fetchMatchedJobs = async ()=>{
     try{
@@ -55,4 +55,4 @@ const PrivateIntern = () => {
   );
 };
 
-export default PrivateIntern;
+export default OverseasIntern;

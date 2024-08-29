@@ -4,6 +4,7 @@ import JobCard from '../components/card';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Cookie from 'js-cookie';
+import bimage from './Job.png';
 
 const Overseasjobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -30,6 +31,14 @@ const Overseasjobs = () => {
       <Dashnavbar className="sticky top-0 z-10" type="job"/>
       <div className="flex w-screen h-full">
         <Sidebar className="sticky top-0 h-full" />
+        <div className="relative grid grid-cols-3 p-2 gap-10 overflow-hidden w-full">
+          {/* Background image and overlay */}
+          <div 
+            className="absolute inset-0 bg-no-repeat bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${bimage})`, backgroundColor: 'rgba(0, 0, 0, 0.7)', backgroundBlendMode: 'overlay'// Darken the background image
+            }}
+          />
         <div className="grid grid-cols-3 p-2 gap-10 overflow-hidden ">
         {jobs.map((job) => (
             <JobCard key={job._id} job={job} />
@@ -39,6 +48,7 @@ const Overseasjobs = () => {
           <JobCard />
           <JobCard /> */}
           {/* Add more cards or other content here */}
+          </div>
         </div>
       </div>
     </div>
