@@ -32,8 +32,6 @@ const App = () => {
       <Route path="/LandingPage" element={<LandingPage />} />
       <Route path="/mock" element={<VideoCallLayout />} />
       <Route path="/bigcard" element={<Jobfinder />} />
-      <Route path="/recruiterSignUp" element={<CreateRecruiterAccount />} />
-      <Route path="/recruiterLogIn" element={<RecruiterLogIn />} />
     </Routes>
   </Router>
   );
