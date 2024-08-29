@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-const Companycard = () => {
+const BigCard = () => {
+  const { id } = useParams(); // Use useParams to get the ID from the URL
+  const [jobDetails, setJobDetails] = useState({
+      _id: '',
+      companyName: ''
+  });
+  console.log(jobDetails);
+
+  useEffect(() => {
+    const fetchJobDetails = async (jobId) => {
+      try {
+        const token = Cookies.get('accessToken'); // Get the token from cookies
+        const response = await axios.get(`http://localhost:8000/api/users/jobs/${jobId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type" : "application/json"
+          },
+        });
+        console.log(response.data);
+        setJobDetails(response.data); // Set the state with the fetched job details
+      } catch (error) {
+        console.error('Error fetching job details:', error);
+      }
+    };
+
+    fetchJobDetails(id); // Pass the ID from useParams
+  }, [id]);
+
+  if (!jobDetails) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div 
-      className="flex justify-center items-center h-screen text-white font-sans w-screen relative"
-    >
+    <div className="flex justify-center items-center h-screen text-white font-sans w-screen relative">
       {/* Background Image with Reduced Opacity */}
       <div className="absolute inset-0">
         <div
@@ -19,13 +51,13 @@ const Companycard = () => {
       {/* Card */}
       <div className="relative w-4/5 max-w-[800px] bg-white bg-opacity-70 text-black rounded-lg shadow-2xl p-10 z-10">
         <h1 className="text-3xl font-bold mb-5 text-[#1c4b8c] text-center">
-          TCS
+          {jobDetails.companyName}
         </h1>
         <div className="mb-7 space-y-3">
           <p className="flex items-center text-xl font-bold">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-[#2a52be] mr-3" // Adjust size here
+              className="h-8 w-8 text-[#2a52be] mr-3" 
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -37,12 +69,12 @@ const Companycard = () => {
                 d="M13 16h-1v-4h1m0 0h-1m-4 4v-4h4V9a1 1 0 00-1-1H7m-2 0a1 1 0 00-1 1v6m6-3h4"
               />
             </svg>
-            About the company
+            {jobDetails.designation} {/* Use jobDetails data */}
           </p>
           <p className="flex items-center text-xl font-bold">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-[#2a52be] mr-3" // Adjust size here
+              className="h-8 w-8 text-[#2a52be] mr-3"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -54,12 +86,12 @@ const Companycard = () => {
                 d="M12 8c-3.32 0-6 2.688-6 6s2.68 6 6 6c3.313 0 6-2.688 6-6 0-3.313-2.687-6-6-6z"
               />
             </svg>
-            For what role
+            {jobDetails.role}
           </p>
           <p className="flex items-center text-xl font-bold">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-[#2a52be] mr-3" // Adjust size here
+              className="h-8 w-8 text-[#2a52be] mr-3"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -71,12 +103,12 @@ const Companycard = () => {
                 d="M12 8c-3.32 0-6 2.688-6 6s2.68 6 6 6c3.313 0 6-2.688 6-6 0-3.313-2.687-6-6-6z"
               />
             </svg>
-            Package
+            {jobDetails.salary}
           </p>
           <p className="flex items-center text-xl font-bold">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-[#2a52be] mr-3" // Adjust size here
+              className="h-8 w-8 text-[#2a52be] mr-3"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -88,12 +120,12 @@ const Companycard = () => {
                 d="M12 8c-3.32 0-6 2.688-6 6s2.68 6 6 6c3.313 0 6-2.688 6-6 0-3.313-2.687-6-6-6z"
               />
             </svg>
-            Criteria
+            {jobDetails.lastDateToApply}
           </p>
           <p className="flex items-center text-xl italic font-bold">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-[#2a52be] mr-3" // Adjust size here
+              className="h-8 w-8 text-[#2a52be] mr-3"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -105,7 +137,7 @@ const Companycard = () => {
                 d="M12 8c-3.32 0-6 2.688-6 6s2.68 6 6 6c3.313 0 6-2.688 6-6 0-3.313-2.687-6-6-6z"
               />
             </svg>
-            (Job Description)
+            {jobDetails.description}
           </p>
         </div>
         <div className="flex justify-center mb-5">
@@ -124,4 +156,4 @@ const Companycard = () => {
   );
 };
 
-export default Companycard;
+export default BigCard;

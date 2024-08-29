@@ -184,3 +184,22 @@ export const getOverseasJobs = async (req, res) => {
         console.log(err);
     }
 }
+
+// Function to get job details by ID
+export const getJobById = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      // Fetch job details from the database
+      const job = await company.findById(id);
+  
+      if (!job) {
+        return res.status(404).json({ message: 'Job not found' });
+      }
+  
+      res.json(job);
+    } catch (error) {
+      console.error('Error fetching job details:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };

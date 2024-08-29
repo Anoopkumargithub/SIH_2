@@ -27,7 +27,8 @@ const App = () => {
       <Route path="/Internship/Private" element={<PrivateIntern />} />
       <Route path="/LandingPage" element={<LandingPage />} />
       <Route path="/mock" element={<VideoCallLayout />} />
-      <Route path="/bigcard" element={<Jobfinder />} />
+      <Route path="/jobs/:id" element={<Jobfinder />} />
+      <Route path="*" element={<div>Page Not Found</div>} />
     </Routes>
   </Router>
   );
