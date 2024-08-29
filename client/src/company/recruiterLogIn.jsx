@@ -4,9 +4,9 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import Cookie from "js-cookie";
-import loginImage from './login-image.avif'; // Import the background image
+import recruiterLogIn from "./recruiterLogInImg.jpg"
 
-const Login = () => {
+const RecruiterLogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -36,7 +36,7 @@ const Login = () => {
   return (
     <div 
       className="min-h-screen bg-cover bg-center w-screen text-white" 
-      style={{ backgroundImage: `url(${loginImage})`, backgroundColor: 'rgba(0, 0, 0, 0.7)', backgroundBlendMode: 'overlay' }} // Set background image with overlay
+      style={{ backgroundImage: `url(${recruiterLogIn})`, backgroundColor: 'rgba(0, 0, 0, 0.7)', backgroundBlendMode: 'overlay' }} // Set background image with overlay
     >
       <Navbar />
       <main className="flex flex-col items-center justify-center min-h-[calc(60vh_-_65px)] px-4">
@@ -44,13 +44,13 @@ const Login = () => {
           <div className="mb-8 ">
             <h2 className="text-4xl font-bold text-center">Login</h2>
             <p className="text-center text-lg mt-2">
-              Log in to access your account.
+              Log in to access your Recruiter Account.
             </p>
           </div>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium">
-                Email
+                Recruiter Email
               </label>
               <input
                 type="email"
@@ -86,8 +86,8 @@ const Login = () => {
           </form>
           <br />
           <div className='px-15 text-center'>
-            <Link to="/" className="text-sm text-white text-2.5xl font-bold">
-              Don't have an account? Create one!
+            <Link to="/recruiterSignUp" className="text-sm text-white text-2.5xl font-bold text">
+              Don't have an account? Create now!
             </Link>
           </div>
         </div>
@@ -96,4 +96,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default RecruiterLogIn;

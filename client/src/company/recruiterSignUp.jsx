@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/navbar';
 import { Link } from 'react-router-dom';
-import signupImage from './signup-image.png'; // Import your image
+import recruiterSignUp from './recruiterSignUpImg.png'; // Import your image
 
-const CreateAccount = () => {
+const CreateRecruiterAccount = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +36,7 @@ const CreateAccount = () => {
       <div className="min-h-screen bg-[#0a0f1f] text-white w-screen flex">
         <div className="relative hidden lg:block w-1/2 h-screen">
           <img 
-            src={signupImage} 
+            src={recruiterSignUp} 
             alt="Sign Up Illustration" 
             className="object-cover w-full h-full transform translate-x-10 translate-y-5" // Adjust the values as needed
           />
@@ -44,20 +44,20 @@ const CreateAccount = () => {
         <div className="flex flex-col items-center justify-center w-full lg:w-1/2 h-screen px-4">
           <div className="w-full lg:w-[75%] xl:w-[75%]">
             <div className="mb-8">
-              <h2 className="text-4xl font-bold text-center">Create an account</h2>
+              <h2 className="text-4xl font-bold text-center">Create a Recruiter Account</h2>
               <p className="text-center text-lg mt-2">
-                Sign up to access our job and internship opportunities.
+                Sign up to hire interns/employees for your company.
               </p>
             </div>
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="block text-sm font-medium">
-                    Name
+                    Recruiter's Name
                   </label>
                   <input
                     type="text"
-                    placeholder="Enter your name"
+                    placeholder="Enter your company's name"
                     name="name"
                     className="bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md w-full"
                     onChange={(e) => setName(e.target.value)}
@@ -65,13 +65,13 @@ const CreateAccount = () => {
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="block text-sm font-medium">
-                    Email
+                  Recruiter's Email
                   </label>
                   <input
                     type="email"
                     name="email"
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder="Enter your company's email"
                     className="bg-[#0a1a2f] border border-[#1a6ba0] text-white px-4 py-2 rounded-md w-full"
                   />
                 </div>
@@ -100,7 +100,7 @@ const CreateAccount = () => {
             </form>
             <br />
             <div className='px-20 text-center'>
-              <Link to="/login" className="text-sm text-white text-2.5xl font-bold">
+              <Link to="/recruiterLogIn" className="text-sm text-white text-2.5xl font-bold">
                 Already have an account? Login
               </Link>
             </div>
@@ -111,4 +111,4 @@ const CreateAccount = () => {
   );
 };
 
-export default CreateAccount;
+export default CreateRecruiterAccount;
