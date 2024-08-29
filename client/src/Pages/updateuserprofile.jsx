@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axis from 'axios';
+import {axios} from '../services/helpers';
 import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
@@ -28,7 +29,7 @@ const UserProfile = () => {
                     return;
                 }
 
-                const response = await axios.get('http://localhost:8000/api/users/profile/${profileData._id}', {
+                const response = await axios.get('/api/users/profile/${profileData._id}', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -80,7 +81,7 @@ const UserProfile = () => {
                 return;
             }
 
-            const response = await axios.put(`http://localhost:8000/api/users/profile/${profileData._id}`, profileData, {
+            const response = await axios.put(`/api/users/profile/${profileData._id}`, profileData, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
