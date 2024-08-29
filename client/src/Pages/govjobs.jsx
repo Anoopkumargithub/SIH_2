@@ -2,7 +2,8 @@ import Sidebar from '../components/sidebar';
 import Dashnavbar from '../components/dashnavbar';
 import JobCard from '../components/card';
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+// import axis from 'axios';
+import {axios} from '../services/helpers';
 import Cookie from 'js-cookie';
 import bimage from './Job.png';
 
@@ -10,7 +11,7 @@ const Govjobs = () => {
   const [jobs, setJobs] = useState([]);
   const fetchMatchedJobs = async ()=>{
     try{
-      const response = await axios.post('http://localhost:8000/api/users/jobs/government' , {}, {
+      const response = await axios.post('/api/users/jobs/government' , {}, {
         headers: {
           'authorization': `Bearer ${Cookie.get("accessToken")}`,
           'Content-Type': 'application/json'
