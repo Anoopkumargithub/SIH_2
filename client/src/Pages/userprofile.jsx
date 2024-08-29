@@ -30,7 +30,7 @@ const UserProfile = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:8000/api/users/profile', {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/profile`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

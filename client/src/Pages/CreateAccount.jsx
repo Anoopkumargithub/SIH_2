@@ -19,7 +19,7 @@ const CreateAccount = () => {
 
   //   
     try {
-    const result = await axios.post('http://localhost:8000/api/users/signup', { name, email, password });
+    const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/signup`, { name, email, password });
     localStorage.setItem('accessToken', result.data.accessToken);
     localStorage.setItem('refreshToken', result.data.refreshToken);
     localStorage.setItem('userId', result.data.userId);

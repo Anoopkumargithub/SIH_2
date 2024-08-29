@@ -28,7 +28,7 @@ const UserProfile = () => {
                     return;
                 }
 
-                const response = await axios.get('http://localhost:8000/api/users/profile/${profileData._id}', {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/profile/${profileData._id}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
