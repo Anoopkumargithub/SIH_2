@@ -30,6 +30,6 @@ const interviewSchema = new mongoose.Schema({
 
 const Result = mongoose.model('Result', interviewSchema);
 
-export default Result;
+// export default Result;
 
 

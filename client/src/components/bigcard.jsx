@@ -141,7 +141,7 @@ const BigCard = () => {
           </p>
         </div>
         <div className="flex justify-center mb-5">
-          <button className="bg-[#2a52be] text-white rounded-md px-6 py-3 mr-5 transition-transform transform hover:scale-105 duration-300 hover:bg-[#1c4b8c]">
+          <button className="bg-[#2a52be] text-white rounded-md px-6 py-3 mr-5 transition-transform transform hover:scale-105 duration-300 hover:bg-[#1c4b8c]" onClick={() => window.location.href = '/mock'}>
             Practise Mock for TCS
           </button>
           <button className="bg-[#2a52be] text-white rounded-md px-6 py-3 transition-transform transform hover:scale-105 duration-300 hover:bg-[#1c4b8c]">

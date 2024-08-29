@@ -3,6 +3,7 @@ import User from '../models/user.models.js';
 import Profile from '../models/profile.models.js';
 import jwt from 'jsonwebtoken';
 import company from '../models/company.models.js';
+import Question from '../models/question.models.js';
 
 // Signup controller
 export const signup = async (req, res) => {
@@ -40,6 +41,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(401).json({ message: 'Invalid email or password' });

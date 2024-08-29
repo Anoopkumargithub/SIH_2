@@ -1,7 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose , {Schema} from 'mongoose';
 
-// Define the sub-schema for questions
-const questionSchema = new mongoose.Schema({
+const questionSchema = new Schema({
     question: {
         type: String,
         required: true
@@ -10,22 +9,8 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-});
+}, {timestamps : true});
 
-// Define the main schema
-const companyQuestionSchema = new mongoose.Schema({
-    companyName: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'company',
-        required: true
-    },
-    role: {
-        type: String,
-        required: true
-    },
-    questions: [questionSchema]
-});
+const Question = mongoose.model('Question', questionSchema); // 'Question' will auto-map to 'questions'
 
-const companyQuestion = mongoose.model('Company', companyQuestionSchema);
-
-export default companyQuestion;
+export default Question;

@@ -1,4 +1,5 @@
 import User from '../models/user.models.js';
+import Question from '../models/question.models.js';
 
 export const signup = async (req, res) => {
     const { name, email, password, avatar } = req.body;

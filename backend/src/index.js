@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import connectDB from './config/db.js';
+import connectDB from './db/index.js';
 import userRoutes from './routes/userRoutes.js';
 import cors from 'cors';
 import errorHandler from './middlewares/errorHandler.js';
@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
 });
 
 // Ensure the server is running
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 }); 
