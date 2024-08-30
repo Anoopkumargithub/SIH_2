@@ -37,7 +37,7 @@ const OverseasIntern = () => {
             className="absolute inset-0 bg-no-repeat bg-cover bg-center"
             style={{
               backgroundImage: `url(${image})`, 
-              backgroundColor: 'white', 
+              backgroundColor: 'rgba(0, 0, 0, 0.7)', 
             //   backgroundBlendMode: 'overlay', 
               brightness:0.5,
               zIndex: 0
