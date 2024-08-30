@@ -14,14 +14,17 @@ import VideoCallLayout from './Pages/MockInterview';
 import Jobfinder from './Pages/jobfinder';
 import OverseasIntern from './Pages/overseasinternship';
 import CreateRecruiterAccount from './company/recruiterSignUp.jsx';
-import RecruiterLogIn from './company/recruiterLogIn.jsx';
+import RecruiterLogIn from './company/recruiterLogIn';
+import Report from './Pages/report';
+import  DetailedReport  from './Pages/detailedreport';
 
 const App = () => {
   return (
     <Router>
        
     <Routes>
-      <Route path="/" element={<CreateAccount />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/signup" element={<CreateAccount />} />
       <Route path="/login" element={<Login />} />
       <Route path="/userprofile" element={<FormComponent />} />
       <Route path="/Jobs/Private" element={<DashBoard />} />
@@ -30,12 +33,13 @@ const App = () => {
       <Route path="/Internship/Private" element={<PrivateIntern />} />
       <Route path="/Internship/Government" element={<GovIntern />} />
       <Route path="/Internship/Overseas" element={<OverseasIntern />} />
-      <Route path="/LandingPage" element={<LandingPage />} />
       <Route path="/mock" element={<VideoCallLayout />} />
       <Route path="/bigcard" element={<Jobfinder />} />
-      <Route path="/recruiter" element={<CreateRecruiterAccount />} />
+      <Route path="/recruitersignup" element={<CreateRecruiterAccount />} />
       <Route path="/recruiterlogin" element={<RecruiterLogIn />} />
       <Route path="/jobs/:id" element={<Jobfinder />} />
+      <Route path="/report" element={<Report />} />
+      <Route path="/detailedreport" element={<DetailedReport  />} />
       <Route path="*" element={<div>Page Not Found</div>} />
     </Routes>
   </Router>

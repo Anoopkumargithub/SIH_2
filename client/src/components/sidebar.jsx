@@ -64,7 +64,7 @@ const Sidebar = () => {
           className={`bg-white text-[#112d4e] rounded-lg p-4 w-full text-lg font-bold text-center ${
             activeLink === 'Result' ? 'underline' : ''
           }`} 
-          to={'/result'}
+          to={'/report'}
           onClick={() => handleLinkClick('Result')}
         >
           Result
