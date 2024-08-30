@@ -1,13 +1,9 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
-<<<<<<< HEAD
-import BackgroundImage from './mockInterview.png';
-=======
 import BackgroundImage from './mockInterview.png'; // Adjust path if needed
 import {axios} from '../services/helpers';
 import Cookie from 'js-cookie';
->>>>>>> aimock
 
 const MockInterview = () => {
   const [questions, setQuestions] = useState([]);
@@ -240,10 +236,4 @@ const MockInterview = () => {
   );
 };
 
-<<<<<<< HEAD
-export default VideoCallLayout;
-    
-          
-=======
 export default MockInterview;
->>>>>>> aimock
