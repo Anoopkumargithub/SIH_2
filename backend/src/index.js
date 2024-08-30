@@ -17,7 +17,7 @@ app.use((req, res, next) => {
   });
   
 app.use(cors({
-    origin: 'https://nexcarrier.onrender.com/', // Ensure this matches your frontend URL
+    origin: 'https://nexcarrier.onrender.com', // Ensure this matches your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
