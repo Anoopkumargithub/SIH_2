@@ -3,6 +3,7 @@ import User from '../models/user.models.js';
 import Profile from '../models/profile.models.js';
 import jwt from 'jsonwebtoken';
 import company from '../models/company.models.js';
+import Question from '../models/question.models.js';
 
 // Signup controller
 export const signup = async (req, res) => {
@@ -40,6 +41,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(401).json({ message: 'Invalid email or password' });
@@ -184,3 +186,22 @@ export const getOverseasJobs = async (req, res) => {
         console.log(err);
     }
 }
+
+// Function to get job details by ID
+export const getJobById = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      // Fetch job details from the database
+      const job = await company.findById(id);
+  
+      if (!job) {
+        return res.status(404).json({ message: 'Job not found' });
+      }
+  
+      res.json(job);
+    } catch (error) {
+      console.error('Error fetching job details:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };

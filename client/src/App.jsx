@@ -35,6 +35,8 @@ const App = () => {
       <Route path="/bigcard" element={<Jobfinder />} />
       <Route path="/recruiter" element={<CreateRecruiterAccount />} />
       <Route path="/recruiterlogin" element={<RecruiterLogIn />} />
+      <Route path="/jobs/:id" element={<Jobfinder />} />
+      <Route path="*" element={<div>Page Not Found</div>} />
     </Routes>
   </Router>
   );

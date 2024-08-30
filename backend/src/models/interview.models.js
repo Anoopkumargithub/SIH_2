@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const resultSchema = new mongoose.Schema({
+const interviewSchema = new mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -28,42 +28,8 @@ const resultSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-const Result = mongoose.model('Result', resultSchema);
+const Result = mongoose.model('Result', interviewSchema);
+
+// export default Result;
 
 
-const interviewQuestionSchema = new mongoose.Schema({
-    question: {
-        type: String,
-        required: true
-    },
-    designation: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'company'
-    },
-    userAnswer: {
-        type: String,
-        required: true
-    },
-    expectedAnswer: {
-        type: String,
-        required: true
-    },
-    score: {
-        type: Number,
-        required: true
-    },
-    whatWentWell: {
-        type: String,
-        required: true
-    },
-    whatCanBeBetter: {
-        type: String,
-        required: true
-    },
-    technicalScore: {
-        type: Number,
-        required: true
-    }
-}, { timestamps: true });
-
-const InterviewQuestion = mongoose.model('InterviewQuestion', interviewQuestionSchema);

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import BigCard from './bigcard';
 
 const JobCard = (props) => {
   return (
@@ -47,8 +49,14 @@ const JobCard = (props) => {
         </span>
       </div>
       <button className="bg-[#027c7e] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" style={{ filter: 'brightness(1.5)', opacity: 1 }}>
+      {/* <button className="bg-[#027c7e] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
         {`More Details`}
-      </button>
+      </button> */}
+      <Link to={`/jobs/${props.job._id}`} className="bg-[#027c7e] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+        {`More Details`} </Link>
+      {/* <button 
+        className="bg-[#027c7e] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+        onClick={() => props.onClick(props.job._id)}>{`More Details`}</button> */}
     </div>
   );
 };
