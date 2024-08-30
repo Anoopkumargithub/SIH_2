@@ -10,7 +10,7 @@ import PrivateIntern from './Pages/privateInternship';
 import GovIntern from './Pages/govinternship';
 import Overseasjobs from  './Pages/overseasjobs';
 import LandingPage from './Pages/LandingPage';
-import VideoCallLayout from './Pages/MockInterview';
+import MockInterview  from './Pages/MockInterview';
 import Jobfinder from './Pages/jobfinder';
 import OverseasIntern from './Pages/overseasinternship';
 import CreateRecruiterAccount from './company/recruiterSignUp.jsx';
@@ -31,7 +31,7 @@ const App = () => {
       <Route path="/Internship/Government" element={<GovIntern />} />
       <Route path="/Internship/Overseas" element={<OverseasIntern />} />
       <Route path="/LandingPage" element={<LandingPage />} />
-      <Route path="/mock" element={<VideoCallLayout />} />
+      <Route path="/mock" element={<MockInterview />} />
       <Route path="/bigcard" element={<Jobfinder />} />
       <Route path="/recruiter" element={<CreateRecruiterAccount />} />
       <Route path="/recruiterlogin" element={<RecruiterLogIn />} />

@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import BackgroundImage from './mockInterview.png'; // Adjust path if needed
+import {axios} from '../services/helpers';
+import Cookie from 'js-cookie';
 
-const VideoCallLayout = () => {
+const MockInterview = () => {
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [question, setQuestion] = useState('');
   const [time, setTime] = useState(60);
   const [isMicEnabled, setIsMicEnabled] = useState(false);
@@ -11,6 +15,42 @@ const VideoCallLayout = () => {
   const timerRef = useRef(null);
   const videoRef = useRef(null);
   const audioRef = useRef(null);
+
+  useEffect(() => {
+    // Fetch questions from the API
+    const fetchQuestions = async () => {
+      try {
+        const token = Cookie.get('accessToken'); // Retrieve token from cookies
+        const response = await axios.get('/api/users/question', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.data;
+        console.log('Fetched questions:', data); // Debugging line
+        setQuestions(data);
+        setQuestion(data[0] || ''); // Set the first question initially
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
+    };
+    fetchQuestions();
+  }, []);
+
+  useEffect(() => {
+    // Set a timer to change the question every 2 minutes
+    const timer = setTimeout(() => {
+      handleNextQuestion();
+    }, 120000); // 2 minutes in milliseconds
+
+    return () => clearTimeout(timer); // Cleanup the timer on component unmount
+  }, [currentQuestionIndex]);
+
+  const handleNextQuestion = () => {
+    const nextIndex = (currentQuestionIndex + 1) % questions.length;
+    setCurrentQuestionIndex(nextIndex);
+    setQuestion(questions[nextIndex]);
+  };
 
   useEffect(() => {
     startTimer();
@@ -130,10 +170,13 @@ const VideoCallLayout = () => {
               <input
                 type="text"
                 placeholder="Ask your question"
-                value={question}
-                onChange={(e) => setQuestion(e.target.value)}
+                value={question || ''}
+                onChange={(e) => setQuestion(e.target.value)}              
                 className="w-full p-3 border border-white rounded-md bg-[#1c1c1c] text-white focus:outline-none"
               />
+              <button onClick={handleNextQuestion} className="mt-2 p-2 bg-blue-500 text-white rounded-md">
+        Next
+      </button>
             </div>
             <div className="controls flex flex-col items-center">
               <div className="flex gap-4 mb-4">
@@ -167,4 +210,4 @@ const VideoCallLayout = () => {
   );
 };
 
-export default VideoCallLayout;
+export default MockInterview;

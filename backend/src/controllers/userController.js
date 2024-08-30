@@ -3,7 +3,8 @@ import User from '../models/user.models.js';
 import Profile from '../models/profile.models.js';
 import jwt from 'jsonwebtoken';
 import company from '../models/company.models.js';
-import Question from '../models/question.models.js';
+import NQuestion from '../models/question.models.js';
+// import Result from '../models/result.models.js';
 
 // Signup controller
 export const signup = async (req, res) => {
@@ -205,3 +206,39 @@ export const getJobById = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   };
+
+//  Function to display question on the basis of roll
+
+export const getQuestion = async (req, res) => {
+    try{
+        // fetch user role and skill
+
+        const profile = await Profile.findOne({userId : req.user._id});
+        console.log(profile)
+        if (!profile) {
+            return res.status(404).json({ message: 'Profile not found' });
+          }
+          const role = profile.role;
+          console.log('Role:',role)
+
+        // fetch question based on user role and skill
+        
+        // fetch all question
+
+        // const question = await NQuestion.find({ role: { $in: [role] } });
+        const question = await NQuestion.find({ role: 'Software Engineer' });
+        console.log('Questions:', question);
+        if (!question.length) {
+            return res.status(404).json({ message: 'No questions found' });
+          }
+        //   console.log('Questions:', question);        
+
+        res.status(200).json(question);
+
+    }
+    catch(err){
+        res.status(500).json({ message: 'An error occurred', error: err.message });
+
+        console.log(err);
+    } 
+}
