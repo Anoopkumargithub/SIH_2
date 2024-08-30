@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BigCard from './bigcard';
+// import BigCard from './bigcard';
 
 const JobCard = (props) => {
   return (

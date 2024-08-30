@@ -1,6 +1,10 @@
 import mongoose , {Schema} from 'mongoose';
 
 const questionSchema = new Schema({
+    role:{
+        type: String, 
+        required: true,
+    },
     question: {
         type: String,
         required: true
@@ -9,8 +13,9 @@ const questionSchema = new Schema({
         type: String,
         required: true
     }
-}, {timestamps : true});
+});
 
-const Question = mongoose.model('Question', questionSchema); // 'Question' will auto-map to 'questions'
+const NQuestion = mongoose.model('NQuestion', questionSchema,'nexcarrer'); 
 
-export default Question;
+
+export default NQuestion;
