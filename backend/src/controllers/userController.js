@@ -235,7 +235,7 @@ export const getQuestion = async (req, res) => {
         const question = await NQuestion.find({role:role});
         console.log('Questions:', question);
         // randomly select one question from the array use random module
-        // const randomIndex = Math.floor(Math.random() * question.length);
+        const randomIndex = Math.floor(Math.random() * question.length);
          
 
         if (!question.length) {
@@ -253,14 +253,3 @@ export const getQuestion = async (req, res) => {
         console.log(err);
     } 
 }
-
-export const uploadAudio = async (req, res) => {
-    try {
-      // Handle the audio file upload here
-      // You might want to save it to a file system or cloud storage
-      res.status(200).json({ message: 'Audio uploaded successfully' });
-    } catch (error) {
-      console.error('Error uploading audio:', error);
-      res.status(500).json({ message: 'Server error' });
-    }
-  };

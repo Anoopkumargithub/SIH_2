@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import BackgroundImage from './mockInterview.png'; // Adjust path if needed
-// import axios from '../services/helpers';
-import axios from 'axios';
+import { axios } from '../services/helpers';
 import Cookie from 'js-cookie';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
 const MockInterview = () => {
   const [questions, setQuestions] = useState([]);
@@ -14,15 +14,16 @@ const MockInterview = () => {
   const [audioStream, setAudioStream] = useState(null);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
-  const [interviewFinished, setInterviewFinished] = useState(false);
   const timerRef = useRef(null);
   const videoRef = useRef(null);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     // Fetch questions from the API
     const fetchQuestions = async () => {
       try {
         const token = Cookie.get('accessToken'); // Retrieve token from cookies
+        console.log('Token:', token); // Debugging line
         const response = await axios.post('/api/users/question', {}, {
           headers: {
             "authorization": `Bearer ${token}`,
@@ -30,9 +31,9 @@ const MockInterview = () => {
           },
         });
         const data = await response.data;
-        console.log("Fetched Questions:", data);
+        console.log('Fetched questions:', data); // Debugging line
         setQuestions(data);
-        setQuestion(data[0] || ''); // Set the first question initially
+        setQuestion(data[0]?.question || ''); // Set the first question initially
       } catch (error) {
         console.error('Error fetching questions:', error);
       }
@@ -41,45 +42,59 @@ const MockInterview = () => {
   }, []);
 
   useEffect(() => {
+    // Set or reset the timer when the question or time changes
     startTimer();
     startCamera();
     return () => {
       stopTimer();
-      stopCamera();
-      stopMicrophone();
+      // stopCamera()
     };
-  }, []);
-
-  useEffect(() => {
-    // Set a timer to change the question every 2 minutes
-    const timer = setTimeout(() => {
-      handleNextQuestion();
-    }, 120000); // 2 minutes in milliseconds
-
-    return () => clearTimeout(timer); // Cleanup the timer on component unmount
   }, [currentQuestionIndex]);
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < 2) { // Only allow 3 questions (0, 1, 2)
-      const nextIndex = currentQuestionIndex + 1;
+    console.log('handleNextQuestion function called');
+    const nextIndex = currentQuestionIndex + 1;
+
+    if (nextIndex < questions.length) {
       setCurrentQuestionIndex(nextIndex);
-      setQuestion(questions[nextIndex]);
+      setQuestion(questions[nextIndex]?.question || '');
+      resetTimer();
     } else {
-      setInterviewFinished(true); // Interview is finished after 3 questions
+      // Show popup and redirect to previous page
+      alert("Interview is finished!");
+      navigate(-1); // Navigate to the previous page
     }
   };
 
   const startTimer = () => {
+    console.log('startTimer function called');
     timerRef.current = setInterval(() => {
-      setTime((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+      setTime((prevTime) => {
+        if (prevTime === 1) {
+          clearInterval(timerRef.current);
+          alert("Time's up!");
+          handleNextQuestion(); // Move to the next question when time is up
+          return 60; // Reset timer for next question
+        }
+        return prevTime - 1;
+      });
     }, 1000);
   };
 
+  const resetTimer = () => {
+    console.log('resetTimer function called');
+    setTime(60); // Reset timer to 60 seconds
+    clearInterval(timerRef.current); // Clear the existing timer
+    startTimer(); // Start a new timer
+  };
+
   const stopTimer = () => {
+    console.log('stopTimer function called');
     clearInterval(timerRef.current);
   };
 
   const startCamera = async () => {
+    console.log('startCamera function called');
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       if (videoRef.current) {
@@ -91,6 +106,7 @@ const MockInterview = () => {
   };
 
   const stopCamera = () => {
+    console.log('stopCamera function called');
     if (videoRef.current?.srcObject) {
       const tracks = videoRef.current.srcObject.getTracks();
       tracks.forEach((track) => track.stop());
@@ -98,6 +114,7 @@ const MockInterview = () => {
   };
 
   const startMicrophone = async () => {
+    console.log('startMicrophone function called');
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const recorder = new MediaRecorder(stream);
@@ -124,6 +141,7 @@ const MockInterview = () => {
   };
 
   const stopMicrophone = () => {
+    console.log('stopMicrophone function called');
     if (mediaRecorder) {
       mediaRecorder.stop();
       setIsMicEnabled(false);
@@ -135,6 +153,7 @@ const MockInterview = () => {
   };
 
   const toggleMic = () => {
+    console.log('toggleMic function called');
     if (!isMicEnabled) {
       startMicrophone();
     } else {
@@ -143,30 +162,36 @@ const MockInterview = () => {
   };
 
   const handleNext = () => {
-    handleNextQuestion();
+    console.log('handleNext function called');
     stopMicrophone();
-    // Add any additional logic for moving to the next question
+    handleNextQuestion();
   };
 
   const uploadAudio = async (blob) => {
+    console.log('uploadAudio function called');
     const formData = new FormData();
     formData.append('file', blob, 'audio.mp3');
-
+  
     try {
-      const response = await fetch('/api/upload', {
+      const response = await fetch('/api/upload-audio',{}, {
         method: 'POST',
         body: formData,
       });
-
+  
       if (response.ok) {
-        console.log('Audio uploaded successfully');
+        const result = await response.json();
+        console.log('Audio uploaded successfully. Transcription:', result.text);
+        alert(`Transcription: ${result.text}`);
       } else {
-        console.error('Error uploading audio');
+        console.error('Error uploading audio:', response.statusText);
+        alert('Failed to upload audio');
       }
     } catch (error) {
       console.error('Error uploading audio:', error);
+      alert('Error occurred while uploading audio');
     }
   };
+  
 
   return (
     <div className="relative h-screen w-screen">
@@ -185,11 +210,11 @@ const MockInterview = () => {
                 </tr>
                 <tr className="border-b border-white">
                   <td className="p-2">Total Attempted</td>
-                  <td className="p-2 text-right">{currentQuestionIndex + 1}</td>
+                  <td className="p-2 text-right">{currentQuestionIndex}</td>
                 </tr>
                 <tr>
                   <td className="p-2">Remaining</td>
-                  <td className="p-2 text-right">{questions.length - currentQuestionIndex - 1}</td>
+                  <td className="p-2 text-right">{questions.length - currentQuestionIndex}</td>
                 </tr>
               </tbody>
             </table>
@@ -236,20 +261,6 @@ const MockInterview = () => {
           </div>
         </div>
       </div>
-      {interviewFinished && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-20">
-          <div className="bg-white text-black p-8 rounded-md">
-            <h2 className="text-2xl font-bold mb-4">Interview Finished!</h2>
-            <p>You have completed all the questions.</p>
-            <button
-              className="mt-4 p-3 bg-[#06aed5] text-[#edf6f9] rounded-md"
-              onClick={() => setInterviewFinished(false)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
