@@ -33,7 +33,7 @@ const App = () => {
       <Route path="/Internship/Private" element={<PrivateIntern />} />
       <Route path="/Internship/Government" element={<GovIntern />} />
       <Route path="/Internship/Overseas" element={<OverseasIntern />} />
-      <Route path="/mock" element={<VideoCallLayout />} />
+      { <Route path="/mock" element={<VideoCallLayout />} /> }
       <Route path="/bigcard" element={<Jobfinder />} />
       <Route path="/recruitersignup" element={<CreateRecruiterAccount />} />
       <Route path="/recruiterlogin" element={<RecruiterLogIn />} />
