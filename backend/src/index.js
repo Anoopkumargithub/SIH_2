@@ -4,6 +4,7 @@ import connectDB from './db/index.js';
 import userRoutes from './routes/userRoutes.js';
 import cors from 'cors';
 import errorHandler from './middlewares/errorHandler.js';
+import helmet from 'helmet';
 
 
 dotenv.config();
@@ -11,6 +12,19 @@ dotenv.config();
 const app = express();
 
 // CORS configuration
+app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        fontSrc: ["'self'", "http://localhost:5173"], // Allow fonts from your domain
+        styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles if needed
+        scriptSrc: ["'self'", "https://trusted-source.com"], // Allow scripts from trusted sources
+        connectSrc: ["'self'", "https://api.example.com"], // Allow connections to specific APIs
+        imgSrc: ["'self'", "data:", "https://example.com"], // Allow images from specific sources
+      },
+    },
+  }));
+
 app.use(cors({
     // origin: 'https://nexcarrier.onrender.com/', // Ensure this matches your frontend URL
     origin: 'http://localhost:5173',
