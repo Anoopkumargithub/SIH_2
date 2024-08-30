@@ -1,16 +1,44 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import BackgroundImage from './mockInterview.png'; // Adjust path if needed
+// import axios from '../services/helpers';
+import axios from 'axios';
+import Cookie from 'js-cookie';
 
-const VideoCallLayout = () => {
+const MockInterview = () => {
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [question, setQuestion] = useState('');
   const [time, setTime] = useState(60);
   const [isMicEnabled, setIsMicEnabled] = useState(false);
   const [audioStream, setAudioStream] = useState(null);
-  const [videoStream, setVideoStream] = useState(null);
+  const [mediaRecorder, setMediaRecorder] = useState(null);
+  const [recordedChunks, setRecordedChunks] = useState([]);
+  const [interviewFinished, setInterviewFinished] = useState(false);
   const timerRef = useRef(null);
   const videoRef = useRef(null);
-  const audioRef = useRef(null);
+
+  useEffect(() => {
+    // Fetch questions from the API
+    const fetchQuestions = async () => {
+      try {
+        const token = Cookie.get('accessToken'); // Retrieve token from cookies
+        const response = await axios.post('/api/users/question', {}, {
+          headers: {
+            "authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+        });
+        const data = await response.data;
+        console.log("Fetched Questions:", data);
+        setQuestions(data);
+        setQuestion(data[0] || ''); // Set the first question initially
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
+    };
+    fetchQuestions();
+  }, []);
 
   useEffect(() => {
     startTimer();
@@ -21,6 +49,25 @@ const VideoCallLayout = () => {
       stopMicrophone();
     };
   }, []);
+
+  useEffect(() => {
+    // Set a timer to change the question every 2 minutes
+    const timer = setTimeout(() => {
+      handleNextQuestion();
+    }, 120000); // 2 minutes in milliseconds
+
+    return () => clearTimeout(timer); // Cleanup the timer on component unmount
+  }, [currentQuestionIndex]);
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < 2) { // Only allow 3 questions (0, 1, 2)
+      const nextIndex = currentQuestionIndex + 1;
+      setCurrentQuestionIndex(nextIndex);
+      setQuestion(questions[nextIndex]);
+    } else {
+      setInterviewFinished(true); // Interview is finished after 3 questions
+    }
+  };
 
   const startTimer = () => {
     timerRef.current = setInterval(() => {
@@ -35,7 +82,6 @@ const VideoCallLayout = () => {
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      setVideoStream(stream);
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
       }
@@ -45,25 +91,43 @@ const VideoCallLayout = () => {
   };
 
   const stopCamera = () => {
-    if (videoStream) {
-      videoStream.getTracks().forEach((track) => track.stop());
-      setVideoStream(null);
+    if (videoRef.current?.srcObject) {
+      const tracks = videoRef.current.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
     }
   };
 
   const startMicrophone = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream);
+
+      recorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          setRecordedChunks((prev) => [...prev, event.data]);
+        }
+      };
+
+      recorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'audio/mp3' });
+        uploadAudio(blob);
+        setRecordedChunks([]);
+      };
+
+      recorder.start();
+      setMediaRecorder(recorder);
       setAudioStream(stream);
-      if (audioRef.current) {
-        audioRef.current.srcObject = stream;
-      }
+      setIsMicEnabled(true);
     } catch (error) {
       console.error('Error accessing microphone:', error);
     }
   };
 
   const stopMicrophone = () => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setIsMicEnabled(false);
+    }
     if (audioStream) {
       audioStream.getTracks().forEach((track) => track.stop());
       setAudioStream(null);
@@ -71,55 +135,66 @@ const VideoCallLayout = () => {
   };
 
   const toggleMic = () => {
-    setIsMicEnabled((prevState) => {
-      if (!prevState) {
-        startMicrophone();
+    if (!isMicEnabled) {
+      startMicrophone();
+    } else {
+      stopMicrophone();
+    }
+  };
+
+  const handleNext = () => {
+    handleNextQuestion();
+    stopMicrophone();
+    // Add any additional logic for moving to the next question
+  };
+
+  const uploadAudio = async (blob) => {
+    const formData = new FormData();
+    formData.append('file', blob, 'audio.mp3');
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log('Audio uploaded successfully');
       } else {
-        stopMicrophone();
+        console.error('Error uploading audio');
       }
-      return !prevState;
-    });
+    } catch (error) {
+      console.error('Error uploading audio:', error);
+    }
   };
 
   return (
     <div className="relative h-screen w-screen">
       <div className="flex h-full bg-[#0a0f1f]">
-        {/* Video Feed on the Left */}
         <div className="w-1/4 h-[33vh] flex flex-col">
           <div className="flex-grow bg-black flex justify-center items-center">
-            <video
-              ref={videoRef}
-              autoPlay
-              className="w-full h-full object-cover rounded-lg"
-            ></video>
-            <audio
-              ref={audioRef}
-              autoPlay
-              className="hidden"
-            ></audio>
+            <video ref={videoRef} autoPlay className="w-full h-full object-cover rounded-lg"></video>
           </div>
-          {/* Table below the video */}
           <div className="bg-[#0a0f1f] text-white border-t border-white p-4 py-40">
             <h2 className="text-lg font-bold mb-2 text-center">Question Update</h2>
             <table className="w-full text-white border border-white">
               <tbody>
                 <tr className="border-b border-white">
                   <td className="p-2">Total Number of Questions</td>
-                  <td className="p-2 text-right">10</td> {/* Example value */}
+                  <td className="p-2 text-right">{questions.length}</td>
                 </tr>
                 <tr className="border-b border-white">
                   <td className="p-2">Total Attempted</td>
-                  <td className="p-2 text-right">3</td> {/* Example value */}
+                  <td className="p-2 text-right">{currentQuestionIndex + 1}</td>
                 </tr>
                 <tr>
                   <td className="p-2">Remaining</td>
-                  <td className="p-2 text-right">7</td> {/* Example value */}
+                  <td className="p-2 text-right">{questions.length - currentQuestionIndex - 1}</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        {/* Black Background for the Rest of the Screen */}
         <div className="flex-1 bg-[#0a0f1f] text-white p-6 flex flex-col justify-between relative">
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -130,7 +205,7 @@ const VideoCallLayout = () => {
               <input
                 type="text"
                 placeholder="Ask your question"
-                value={question}
+                value={question || ''}
                 onChange={(e) => setQuestion(e.target.value)}
                 className="w-full p-3 border border-white rounded-md bg-[#1c1c1c] text-white focus:outline-none"
               />
@@ -139,9 +214,7 @@ const VideoCallLayout = () => {
               <div className="flex gap-4 mb-4">
                 <button
                   className={`p-3 rounded-md flex items-center ${
-                    isMicEnabled
-                      ? 'bg-[#06aed5] text-[#edf6f9]'
-                      : 'bg-[#83c5be] text-[#006d77]'
+                    isMicEnabled ? 'bg-[#06aed5] text-[#edf6f9]' : 'bg-[#83c5be] text-[#006d77]'
                   }`}
                   onClick={toggleMic}
                 >
@@ -156,15 +229,29 @@ const VideoCallLayout = () => {
               <div className="timer bg-[#83c5be] px-6 py-3 rounded-md mb-4 text-[#006d77]">
                 {time > 0 ? time : "Time's up!"}
               </div>
-              <button className="p-3 bg-[#06aed5] text-[#edf6f9] rounded-md w-full">
+              <button className="p-3 bg-[#06aed5] text-[#edf6f9] rounded-md w-full" onClick={handleNext}>
                 Next
               </button>
             </div>
           </div>
         </div>
       </div>
+      {interviewFinished && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-20">
+          <div className="bg-white text-black p-8 rounded-md">
+            <h2 className="text-2xl font-bold mb-4">Interview Finished!</h2>
+            <p>You have completed all the questions.</p>
+            <button
+              className="mt-4 p-3 bg-[#06aed5] text-[#edf6f9] rounded-md"
+              onClick={() => setInterviewFinished(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default VideoCallLayout;
+export default MockInterview;
