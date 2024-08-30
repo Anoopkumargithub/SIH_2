@@ -17,6 +17,10 @@ import CreateRecruiterAccount from './company/recruiterSignUp.jsx';
 import RecruiterLogIn from './company/recruiterLogIn';
 import Report from './Pages/report';
 import  DetailedReport  from './Pages/detailedreport';
+import RecruiterDashboard from './company/recruiterdashboard';
+import JobDetails from './company/jobdetails';
+import RecruiterInternship from './company/recruiterinternship.jsx';
+import JobInternPost from './company/jobinternpost.jsx';
 
 const App = () => {
   return (
@@ -33,7 +37,7 @@ const App = () => {
       <Route path="/Internship/Private" element={<PrivateIntern />} />
       <Route path="/Internship/Government" element={<GovIntern />} />
       <Route path="/Internship/Overseas" element={<OverseasIntern />} />
-      <Route path="/mock" element={<VideoCallLayout />} />
+      { <Route path="/mock" element={<VideoCallLayout />} /> }
       <Route path="/bigcard" element={<Jobfinder />} />
       <Route path="/recruitersignup" element={<CreateRecruiterAccount />} />
       <Route path="/recruiterlogin" element={<RecruiterLogIn />} />
@@ -41,6 +45,10 @@ const App = () => {
       <Route path="/report" element={<Report />} />
       <Route path="/detailedreport" element={<DetailedReport  />} />
       <Route path="*" element={<div>Page Not Found</div>} />
+      <Route path="/dashboard" element= {< RecruiterDashboard/>}/>
+      <Route path="/jobdetails" element= {<JobDetails/>}/>
+      <Route path="/recruiterinternship" element= {<RecruiterInternship/>}/>
+      <Route path="/job-intern-post" element= {<JobInternPost/>}/>
     </Routes>
   </Router>
   );
