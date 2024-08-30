@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import axis from 'axios';
+import {axios} from '../services/helpers';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import Cookie from "js-cookie";
@@ -15,7 +16,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/users/login', {
+      const response = await axios.post('/api/users/login', {
         email,
         password,
       });

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import axis from 'axios';
+import {axios} from '../services/helpers';
 import Navbar from '../components/navbar';
 import { Link } from 'react-router-dom';
 import signupImage from './signup-image.png'; // Import your image
@@ -17,7 +18,7 @@ const CreateAccount = () => {
     setIsLoading(true);
 
     try {
-      const result = await axios.post('http://localhost:8000/api/users/signup', { name, email, password });
+      const result = await axios.post('/api/users/signup', { name, email, password });
       localStorage.setItem('accessToken', result.data.accessToken);
       localStorage.setItem('refreshToken', result.data.refreshToken);
       localStorage.setItem('userId', result.data.userId);
