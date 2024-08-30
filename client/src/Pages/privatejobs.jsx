@@ -3,7 +3,8 @@ import Dashnavbar from '../components/dashnavbar';
 import JobCard from '../components/card';
 import React, { useEffect, useState } from 'react';
 import bimage from './Job.png';
-import axios from 'axios';
+// import axis from 'axios';
+import {axios} from '../services/helpers';
 import Cookie from 'js-cookie';
 
 const Dashboard = () => {
@@ -11,7 +12,7 @@ const Dashboard = () => {
 
   const fetchMatchedJobs = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/users/jobs/private', {}, {
+      const response = await axios.post('/api/users/jobs/private', {}, {
         headers: {
           'authorization': `Bearer ${Cookie.get("accessToken")}`,
           'Content-Type': 'application/json'

@@ -1,6 +1,7 @@
-import axios from 'axios';
+// import axis from 'axios';
+import {axios} from '../services/helpers';
 
-const API_URL = 'http://localhost:8000/api/users';
+const API_URL = '/api/users';
 
 export const getUserProfile = async () => {
   const token = localStorage.getItem('accessToken');
