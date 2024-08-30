@@ -13,7 +13,7 @@ const app = express();
 // CORS configuration
 app.use(cors({
     // origin: 'https://nexcarrier.onrender.com/', // Ensure this matches your frontend URL
-    origin: 'http://localhost:5173 || https://nexcarrier.onrender.com',
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));

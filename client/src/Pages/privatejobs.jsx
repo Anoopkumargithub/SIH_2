@@ -30,7 +30,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden w-screen">
       <Dashnavbar className="sticky top-0 z-10" type="job" />
       <div className="flex h-full w-full">
         <Sidebar className="sticky top-0 h-full" />
