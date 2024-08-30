@@ -3,7 +3,8 @@ import User from '../models/user.models.js';
 import Profile from '../models/profile.models.js';
 import jwt from 'jsonwebtoken';
 import company from '../models/company.models.js';
-import Question from '../models/question.models.js';
+import NQuestion from '../models/question.models.js';
+// import Result from '../models/result.models.js';
 
 // Signup controller
 export const signup = async (req, res) => {
@@ -202,6 +203,64 @@ export const getJobById = async (req, res) => {
       res.json(job);
     } catch (error) {
       console.error('Error fetching job details:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
+
+//  Function to display question on the basis of roll
+
+export const getQuestion = async (req, res) => {
+    try{
+        // fetch user role and skill
+        // console.error('Test Error');
+        // throw new Error('Test Error');  
+
+
+
+        const profile = await Profile.findOne({userId : req.user._id});
+        console.log("---------------------------------------")
+        console.log(profile)
+        console.log("---------------------------------------------------")
+        if (!profile) {
+            return res.status(404).json({ message: 'Profile not found' });
+          }
+          const role = profile.role;
+          console.log('Role:',role)
+
+        // fetch question based on user role and skill
+        
+        // fetch all question
+
+        // const question = await NQuestion.find({ role: { $in: [role] } });
+        const question = await NQuestion.find({role:role});
+        console.log('Questions:', question);
+        // randomly select one question from the array use random module
+        // const randomIndex = Math.floor(Math.random() * question.length);
+         
+
+        if (!question.length) {
+            return res.status(404).json({ message: 'No questions found' });
+          }
+        //   console.log('Questions:', question);        
+
+        // res.status(200).json(question[randomIndex]);
+        res.status(200).json(question);
+
+    }
+    catch(err){
+        res.status(500).json({ message: 'An error occurred', error: err.message });
+
+        console.log(err);
+    } 
+}
+
+export const uploadAudio = async (req, res) => {
+    try {
+      // Handle the audio file upload here
+      // You might want to save it to a file system or cloud storage
+      res.status(200).json({ message: 'Audio uploaded successfully' });
+    } catch (error) {
+      console.error('Error uploading audio:', error);
       res.status(500).json({ message: 'Server error' });
     }
   };

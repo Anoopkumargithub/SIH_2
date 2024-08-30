@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import BackgroundImage from './mockInterview.png'; // Adjust path if needed
-import { axios } from '../services/helpers';
+// import axios from '../services/helpers';
+import axios from 'axios';
 import Cookie from 'js-cookie';
 
 const MockInterview = () => {
@@ -13,6 +14,7 @@ const MockInterview = () => {
   const [audioStream, setAudioStream] = useState(null);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
+  const [interviewFinished, setInterviewFinished] = useState(false);
   const timerRef = useRef(null);
   const videoRef = useRef(null);
 
@@ -21,17 +23,29 @@ const MockInterview = () => {
     const fetchQuestions = async () => {
       try {
         const token = Cookie.get('accessToken'); // Retrieve token from cookies
+<<<<<<< HEAD
         console.log('Token:', token); // Debugging line
         const response = await axios.post('/api/users/question', {}, {
           headers: {
             "authorization": Bearer ${token},
+=======
+        const response = await axios.post('/api/users/question', {}, {
+          headers: {
+            "authorization": `Bearer ${token}`,
+>>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
             "Content-Type": "application/json"
           },
         });
         const data = await response.data;
+<<<<<<< HEAD
         console.log('Fetched questions:', data); // Debugging line
         setQuestions(data);
         setQuestion(data[0]?.question || ''); // Set the first question initially
+=======
+        console.log("Fetched Questions:", data);
+        setQuestions(data);
+        setQuestion(data[0] || ''); // Set the first question initially
+>>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
       } catch (error) {
         console.error('Error fetching questions:', error);
       }
@@ -40,6 +54,7 @@ const MockInterview = () => {
   }, []);
 
   useEffect(() => {
+<<<<<<< HEAD
     // Set a timer to change the question every 2 minutes
     const timer = setTimeout(() => {
       handleNextQuestion();
@@ -61,6 +76,8 @@ const MockInterview = () => {
   };
 
   useEffect(() => {
+=======
+>>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
     startTimer();
     startCamera();
     return () => {
@@ -69,6 +86,25 @@ const MockInterview = () => {
       stopMicrophone();
     };
   }, []);
+
+  useEffect(() => {
+    // Set a timer to change the question every 2 minutes
+    const timer = setTimeout(() => {
+      handleNextQuestion();
+    }, 120000); // 2 minutes in milliseconds
+
+    return () => clearTimeout(timer); // Cleanup the timer on component unmount
+  }, [currentQuestionIndex]);
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < 2) { // Only allow 3 questions (0, 1, 2)
+      const nextIndex = currentQuestionIndex + 1;
+      setCurrentQuestionIndex(nextIndex);
+      setQuestion(questions[nextIndex]);
+    } else {
+      setInterviewFinished(true); // Interview is finished after 3 questions
+    }
+  };
 
   const startTimer = () => {
     console.log('startTimer function called');
@@ -151,7 +187,11 @@ const MockInterview = () => {
   };
 
   const handleNext = () => {
+<<<<<<< HEAD
     console.log('handleNext function called');
+=======
+    handleNextQuestion();
+>>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
     stopMicrophone();
     handleNextQuestion();
   };
@@ -190,15 +230,15 @@ const MockInterview = () => {
               <tbody>
                 <tr className="border-b border-white">
                   <td className="p-2">Total Number of Questions</td>
-                  <td className="p-2 text-right">10</td>
+                  <td className="p-2 text-right">{questions.length}</td>
                 </tr>
                 <tr className="border-b border-white">
                   <td className="p-2">Total Attempted</td>
-                  <td className="p-2 text-right">3</td>
+                  <td className="p-2 text-right">{currentQuestionIndex + 1}</td>
                 </tr>
                 <tr>
                   <td className="p-2">Remaining</td>
-                  <td className="p-2 text-right">7</td>
+                  <td className="p-2 text-right">{questions.length - currentQuestionIndex - 1}</td>
                 </tr>
               </tbody>
             </table>
@@ -245,8 +285,26 @@ const MockInterview = () => {
           </div>
         </div>
       </div>
+      {interviewFinished && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-20">
+          <div className="bg-white text-black p-8 rounded-md">
+            <h2 className="text-2xl font-bold mb-4">Interview Finished!</h2>
+            <p>You have completed all the questions.</p>
+            <button
+              className="mt-4 p-3 bg-[#06aed5] text-[#edf6f9] rounded-md"
+              onClick={() => setInterviewFinished(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default MockInterview;
+=======
+export default MockInterview;
+>>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
