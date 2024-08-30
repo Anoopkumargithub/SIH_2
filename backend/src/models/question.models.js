@@ -15,7 +15,7 @@ const questionSchema = new Schema({
     }
 });
 
-// const NQuestion = mongoose.model('NQuestion', questionSchema,'nexcarrer'); 
+
 const NQuestion = mongoose.model('NQuestion', questionSchema);
 
 export default NQuestion;

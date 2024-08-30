@@ -31,6 +31,6 @@ const resultSchema = new Schema(
       { timestamps: true }
 );
 
-const Result = mongoose.model("Result", resultSchema, "nexcarrer");
+const Result = mongoose.model("Result", resultSchema);
 
-// export default Result;
+export default Result;
