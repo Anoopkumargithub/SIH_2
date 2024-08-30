@@ -23,29 +23,16 @@ const MockInterview = () => {
     const fetchQuestions = async () => {
       try {
         const token = Cookie.get('accessToken'); // Retrieve token from cookies
-<<<<<<< HEAD
-        console.log('Token:', token); // Debugging line
-        const response = await axios.post('/api/users/question', {}, {
-          headers: {
-            "authorization": Bearer ${token},
-=======
         const response = await axios.post('/api/users/question', {}, {
           headers: {
             "authorization": `Bearer ${token}`,
->>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
             "Content-Type": "application/json"
           },
         });
         const data = await response.data;
-<<<<<<< HEAD
-        console.log('Fetched questions:', data); // Debugging line
-        setQuestions(data);
-        setQuestion(data[0]?.question || ''); // Set the first question initially
-=======
         console.log("Fetched Questions:", data);
         setQuestions(data);
         setQuestion(data[0] || ''); // Set the first question initially
->>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
       } catch (error) {
         console.error('Error fetching questions:', error);
       }
@@ -54,30 +41,6 @@ const MockInterview = () => {
   }, []);
 
   useEffect(() => {
-<<<<<<< HEAD
-    // Set a timer to change the question every 2 minutes
-    const timer = setTimeout(() => {
-      handleNextQuestion();
-    }, 120000); // 2 minutes in milliseconds
-
-    return () => clearTimeout(timer); // Cleanup the timer on component unmount
-  }, [currentQuestionIndex]);
-
-  const handleNextQuestion = () => {
-    console.log('handleNextQuestion function called');
-    const nextIndex = (currentQuestionIndex + 1) % questions.length;
-    setCurrentQuestionIndex(nextIndex);
-    setQuestion(questions[nextIndex]?.question || '');
-    
-    if (nextIndex === 0) {
-      // Show popup after 3 questions
-      alert("Interview is finished!");
-    }
-  };
-
-  useEffect(() => {
-=======
->>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
     startTimer();
     startCamera();
     return () => {
@@ -187,11 +150,7 @@ const MockInterview = () => {
   };
 
   const handleNext = () => {
-<<<<<<< HEAD
-    console.log('handleNext function called');
-=======
     handleNextQuestion();
->>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
     stopMicrophone();
     handleNextQuestion();
   };
@@ -247,7 +206,7 @@ const MockInterview = () => {
         <div className="flex-1 bg-[#0a0f1f] text-white p-6 flex flex-col justify-between relative">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: url(${BackgroundImage}), filter: 'brightness(0.5)' }}
+            style={{ backgroundImage: `url(${BackgroundImage})`, filter: 'brightness(0.5)' }}
           />
           <div className="relative z-10 flex flex-col h-full justify-between">
             <div className="question mb-4">
@@ -303,8 +262,4 @@ const MockInterview = () => {
   );
 };
 
-<<<<<<< HEAD
 export default MockInterview;
-=======
-export default MockInterview;
->>>>>>> ba3f1831a9c72e009f78f8600a10933ff14e9c98
