@@ -16,7 +16,7 @@ app.use(helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        fontSrc: ["'self'", "http://localhost:5173"], // Allow fonts from your domain
+        fontSrc: ["'self'", "https://sih-2-x01j.onrender.com"], // Allow fonts from your domain
         styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles if needed
         scriptSrc: ["'self'", "https://trusted-source.com"], // Allow scripts from trusted sources
         connectSrc: ["'self'", "https://api.example.com"], // Allow connections to specific APIs
@@ -27,7 +27,7 @@ app.use(helmet({
 
 app.use(cors({
     // origin: 'https://nexcarrier.onrender.com/', // Ensure this matches your frontend URL
-    origin: 'http://localhost:5173',
+    origin: 'https://sih-2-x01j.onrender.com',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
