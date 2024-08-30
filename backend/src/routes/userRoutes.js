@@ -1,5 +1,5 @@
 import express from 'express';
-import { signup, login, getUserProfile, createOrUpdateProfile, getPrivateJobs, getGovernmentJobs,getOverseasJobs,getJobById,getQuestion } from '../controllers/userController.js';
+import { signup, login, getUserProfile, createOrUpdateProfile, getPrivateJobs, getGovernmentJobs,getOverseasJobs,getJobById,getQuestion, uploadAudio } from '../controllers/userController.js';
 import { protect } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
@@ -18,7 +18,8 @@ router.post('/jobs/government', protect, asyncHandler(getGovernmentJobs)); // Ro
 router.post('/jobs/overseas', protect, asyncHandler(getOverseasJobs)); // Route to get Overseas jobs
 router.get('/jobs/:id', protect, getJobById); // Route to get job details
 
-router.get('/question', protect, asyncHandler(getQuestion)); // Route to get question
+router.post('/question', protect, asyncHandler(getQuestion)); // Route to get question
+router.post('/upload', protect, asyncHandler(uploadAudio));
 
 
 // Catch-all route for undefined routes

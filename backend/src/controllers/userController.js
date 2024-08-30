@@ -212,9 +212,15 @@ export const getJobById = async (req, res) => {
 export const getQuestion = async (req, res) => {
     try{
         // fetch user role and skill
+        // console.error('Test Error');
+        // throw new Error('Test Error');  
+
+
 
         const profile = await Profile.findOne({userId : req.user._id});
+        console.log("---------------------------------------")
         console.log(profile)
+        console.log("---------------------------------------------------")
         if (!profile) {
             return res.status(404).json({ message: 'Profile not found' });
           }
@@ -226,13 +232,18 @@ export const getQuestion = async (req, res) => {
         // fetch all question
 
         // const question = await NQuestion.find({ role: { $in: [role] } });
-        const question = await NQuestion.find({ role: 'Software Engineer' });
+        const question = await NQuestion.find({role:role});
         console.log('Questions:', question);
+        // randomly select one question from the array use random module
+        // const randomIndex = Math.floor(Math.random() * question.length);
+         
+
         if (!question.length) {
             return res.status(404).json({ message: 'No questions found' });
           }
         //   console.log('Questions:', question);        
 
+        // res.status(200).json(question[randomIndex]);
         res.status(200).json(question);
 
     }
@@ -242,3 +253,14 @@ export const getQuestion = async (req, res) => {
         console.log(err);
     } 
 }
+
+export const uploadAudio = async (req, res) => {
+    try {
+      // Handle the audio file upload here
+      // You might want to save it to a file system or cloud storage
+      res.status(200).json({ message: 'Audio uploaded successfully' });
+    } catch (error) {
+      console.error('Error uploading audio:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };

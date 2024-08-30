@@ -1,8 +1,8 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import BackgroundImage from './mockInterview.png'; // Adjust path if needed
-import {axios} from '../services/helpers';
+// import axios from '../services/helpers';
+import axios from 'axios';
 import Cookie from 'js-cookie';
 
 const MockInterview = () => {
@@ -14,6 +14,7 @@ const MockInterview = () => {
   const [audioStream, setAudioStream] = useState(null);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
+  const [interviewFinished, setInterviewFinished] = useState(false);
   const timerRef = useRef(null);
   const videoRef = useRef(null);
 
@@ -22,13 +23,14 @@ const MockInterview = () => {
     const fetchQuestions = async () => {
       try {
         const token = Cookie.get('accessToken'); // Retrieve token from cookies
-        const response = await axios.get('/api/users/question', {
+        const response = await axios.post('/api/users/question', {}, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            "authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
           },
         });
         const data = await response.data;
-        console.log('Fetched questions:', data); // Debugging line
+        console.log("Fetched Questions:", data);
         setQuestions(data);
         setQuestion(data[0] || ''); // Set the first question initially
       } catch (error) {
@@ -36,6 +38,16 @@ const MockInterview = () => {
       }
     };
     fetchQuestions();
+  }, []);
+
+  useEffect(() => {
+    startTimer();
+    startCamera();
+    return () => {
+      stopTimer();
+      stopCamera();
+      stopMicrophone();
+    };
   }, []);
 
   useEffect(() => {
@@ -48,20 +60,14 @@ const MockInterview = () => {
   }, [currentQuestionIndex]);
 
   const handleNextQuestion = () => {
-    const nextIndex = (currentQuestionIndex + 1) % questions.length;
-    setCurrentQuestionIndex(nextIndex);
-    setQuestion(questions[nextIndex]);
+    if (currentQuestionIndex < 2) { // Only allow 3 questions (0, 1, 2)
+      const nextIndex = currentQuestionIndex + 1;
+      setCurrentQuestionIndex(nextIndex);
+      setQuestion(questions[nextIndex]);
+    } else {
+      setInterviewFinished(true); // Interview is finished after 3 questions
+    }
   };
-
-  useEffect(() => {
-    startTimer();
-    startCamera();
-    return () => {
-      stopTimer();
-      stopCamera();
-      stopMicrophone();
-    };
-  }, []);
 
   const startTimer = () => {
     timerRef.current = setInterval(() => {
@@ -137,6 +143,7 @@ const MockInterview = () => {
   };
 
   const handleNext = () => {
+    handleNextQuestion();
     stopMicrophone();
     // Add any additional logic for moving to the next question
   };
@@ -174,15 +181,15 @@ const MockInterview = () => {
               <tbody>
                 <tr className="border-b border-white">
                   <td className="p-2">Total Number of Questions</td>
-                  <td className="p-2 text-right">10</td>
+                  <td className="p-2 text-right">{questions.length}</td>
                 </tr>
                 <tr className="border-b border-white">
                   <td className="p-2">Total Attempted</td>
-                  <td className="p-2 text-right">3</td>
+                  <td className="p-2 text-right">{currentQuestionIndex + 1}</td>
                 </tr>
                 <tr>
                   <td className="p-2">Remaining</td>
-                  <td className="p-2 text-right">7</td>
+                  <td className="p-2 text-right">{questions.length - currentQuestionIndex - 1}</td>
                 </tr>
               </tbody>
             </table>
@@ -199,12 +206,9 @@ const MockInterview = () => {
                 type="text"
                 placeholder="Ask your question"
                 value={question || ''}
-                onChange={(e) => setQuestion(e.target.value)}              
+                onChange={(e) => setQuestion(e.target.value)}
                 className="w-full p-3 border border-white rounded-md bg-[#1c1c1c] text-white focus:outline-none"
               />
-              <button onClick={handleNextQuestion} className="mt-2 p-2 bg-blue-500 text-white rounded-md">
-        Next
-      </button>
             </div>
             <div className="controls flex flex-col items-center">
               <div className="flex gap-4 mb-4">
@@ -232,6 +236,20 @@ const MockInterview = () => {
           </div>
         </div>
       </div>
+      {interviewFinished && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-20">
+          <div className="bg-white text-black p-8 rounded-md">
+            <h2 className="text-2xl font-bold mb-4">Interview Finished!</h2>
+            <p>You have completed all the questions.</p>
+            <button
+              className="mt-4 p-3 bg-[#06aed5] text-[#edf6f9] rounded-md"
+              onClick={() => setInterviewFinished(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

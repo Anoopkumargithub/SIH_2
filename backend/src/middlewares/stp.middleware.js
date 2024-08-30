@@ -1,8 +1,14 @@
-const express = require('express');
-const multer = require('multer');
-const fs = require('fs');
-const util = require('util');
-const textToSpeech = require('@google-cloud/text-to-speech');
+import express from 'express';
+import multer from 'multer';
+import fs from 'fs';
+import util from 'util';
+import textToSpeech from '@google-cloud/text-to-speech';
+
+// const express = require('express');
+// const multer = require('multer');
+// const fs = require('fs');
+// const util = require('util');
+// const textToSpeech = require('@google-cloud/text-to-speech');
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
