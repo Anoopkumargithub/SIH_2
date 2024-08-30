@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import axis from 'axios';
+// import axios from 'axios';
 import {axios} from '../services/helpers';
 import Navbar from '../components/navbar';
 import { Link } from 'react-router-dom';
