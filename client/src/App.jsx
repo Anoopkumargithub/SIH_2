@@ -21,6 +21,7 @@ import RecruiterDashboard from './company/recruiterdashboard';
 import JobDetails from './company/jobdetails';
 import RecruiterInternship from './company/recruiterinternship.jsx';
 import JobInternPost from './company/jobinternpost.jsx';
+import MentorshipPage from './Pages/mentorship.jsx';
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
       <Route path="/jobdetails" element= {<JobDetails/>}/>
       <Route path="/recruiterinternship" element= {<RecruiterInternship/>}/>
       <Route path="/job-intern-post" element= {<JobInternPost/>}/>
+      <Route path="/mentorship" element= {<MentorshipPage/>}/>
     </Routes>
   </Router>
   );

@@ -15,8 +15,11 @@ const Sidebar = () => {
 
   const handleButtonClick = (buttonName) => {
     setActiveLink(buttonName);
+    
     if (buttonName === 'Logout') {
       navigate('/login');
+    } else if (buttonName === 'Profile') {
+      navigate('/Jobs/Private');
     }
   };
 
@@ -71,7 +74,7 @@ const Sidebar = () => {
         </Link>
       </div>
       <div className="space-y-4 w-full pb-5">
-        {['Profile', 'Logout'].map((buttonName) => (
+        {['Home', 'Logout'].map((buttonName) => (
           <button
             key={buttonName}
             className={`bg-[#112d4e] text-white rounded-lg p-4 w-full font-bold text-2xl text-center ${
