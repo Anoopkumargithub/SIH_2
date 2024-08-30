@@ -11,6 +11,7 @@ import GovIntern from './Pages/govinternship';
 import Overseasjobs from  './Pages/overseasjobs';
 import LandingPage from './Pages/LandingPage';
 import VideoCallLayout from './Pages/MockInterview';
+// import CreateRecruiterAccount from './Pages/company/recruiterSignUp';
 
 import Jobfinder from './Pages/jobfinder';
 import OverseasIntern from './Pages/overseasinternship';
@@ -32,8 +33,8 @@ const App = () => {
       <Route path="/LandingPage" element={<LandingPage />} />
       <Route path="/mock" element={<VideoCallLayout />} />
       <Route path="/bigcard" element={<Jobfinder />} />
-      <Route path="/recruiterSignUp" element={<CreateRecruiterAccount />} />
-      <Route path="/recruiterLogIn" element={<RecruiterLogIn />} />
+      {/* <Route path="/recruiterSignUp" element={<CreateRecruiterAccount />} /> */}
+      {/* <Route path="/recruiterLogIn" element={<RecruiterLogIn />} /> */}
     </Routes>
   </Router>
   );
