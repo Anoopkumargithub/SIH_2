@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-//const dev = true;
+const dev = false;
 export const axios = Axios.create({
-    baseURL:"http://localhost:8000"
+    baseURL: (dev ? "http://localhost:8000": " https://sih-d2.onrender.com")
 });
