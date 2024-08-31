@@ -26,7 +26,7 @@ app.use(helmet({
 }));
 app.use(cors({
     // origin: 'https://nexcarrier.onrender.com/', // Ensure this matches your frontend URL
-    origin: 'https://sih-d2.onrender.com',
+    origin: 'http://localhost:5174',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
