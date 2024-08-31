@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+// import axis from 'axios';
+import {axios} from '../services/helpers';
 import Cookies from 'js-cookie';
 
 const BigCard = () => {
@@ -15,7 +16,8 @@ const BigCard = () => {
     const fetchJobDetails = async (jobId) => {
       try {
         const token = Cookies.get('accessToken'); // Get the token from cookies
-        const response = await axios.get(`http://localhost:8000/api/users/jobs/${jobId}`, {
+        const response = await axios.get(`
+/api/users/jobs/${jobId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type" : "application/json"
