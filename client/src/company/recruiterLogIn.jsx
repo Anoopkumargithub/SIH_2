@@ -13,24 +13,26 @@ const RecruiterLogIn = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+      navigate('/dashboard'); // Replace with your intended route
+
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8000/api/users/login', {
-        email,
-        password,
-      });
-      console.log(response.data);
-      Cookie.set("accessToken", response.data.accessToken);
+    // try {
+    //   const response = await axios.post('http://localhost:8000/api/users/login', {
+    //     email,
+    //     password,
+    //   });
+    //   console.log(response.data);
+    //   Cookie.set("accessToken", response.data.accessToken);
       
-      navigate('/Jobs/Private'); // Replace with your intended route
-    } catch (error) {
-      console.error('Login Error:', error); // Log any error
-      if (error.response && error.response.data) {
-        setError(error.response.data.message || 'An error occurred');
-      } else {
-        setError('An error occurred');
-      }
-    }
+    //   navigate('/Jobs/Private'); // Replace with your intended route
+    // } catch (error) {
+    //   console.error('Login Error:', error); // Log any error
+    //   if (error.response && error.response.data) {
+    //     setError(error.response.data.message || 'An error occurred');
+    //   } else {
+    //     setError('An error occurred');
+    //   }
+    // }
   };
 
   return (

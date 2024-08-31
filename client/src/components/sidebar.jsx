@@ -13,12 +13,12 @@ const Sidebar = () => {
     setActiveLink(linkName);
   };
 
-  const handleButtonClick = (buttonName) => {
+  const handleButtonClick = (buttonName) => { 
     setActiveLink(buttonName);
     
     if (buttonName === 'Logout') {
       navigate('/login');
-    } else if (buttonName === 'Profile') {
+    } else if (buttonName === 'Home') {
       navigate('/Jobs/Private');
     }
   };

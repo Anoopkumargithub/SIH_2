@@ -13,21 +13,21 @@ const CreateRecruiterAccount = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+    navigate('/recruiterlogin');  
+    // e.preventDefault();
+    // setIsLoading(true);
 
-    try {
+    // try {
       const result = await axios.post('http://localhost:8000/api/users/signup', { name, email, password });
       localStorage.setItem('accessToken', result.data.accessToken);
       localStorage.setItem('refreshToken', result.data.refreshToken);
       localStorage.setItem('userId', result.data.userId);
-      navigate('/userprofile');
-    } catch (err) {
-      console.error('Error:', err.response ? err.response.data : err.message);
-      alert('Failed to create account. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+    // } catch (err) {
+    //   console.error('Error:', err.response ? err.response.data : err.message);
+    //   alert('Failed to create account. Please try again.');
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   return (
