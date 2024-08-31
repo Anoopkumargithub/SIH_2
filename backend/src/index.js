@@ -4,6 +4,7 @@ import connectDB from './db/index.js';
 import userRoutes from './routes/userRoutes.js';
 import cors from 'cors';
 import errorHandler from './middlewares/errorHandler.js';
+import helmet from 'helmet';
 
 
 dotenv.config();
